@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم - نظام إدارة التقارير المدرسية</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f8fafc;
+    }
+    .submenu {
+      transition: all 0.3s ease;
+    }
+    .rotate-180 {
+      transform: rotate(180deg);
+    }
+    .sidebar {
+      width: 280px;
+      transition: all 0.3s;
+    }
+    .main-content {
+      margin-right: 280px;
+      transition: all 0.3s;
+    }
+    @media (max-width: 1024px) {
+      .sidebar {
+        transform: translateX(-280px);
+        position: fixed;
+        z-index: 40;
+        height: 100vh;
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-right: 0;
+      }
+    }
+    .nav-item:hover {
+      background-color: rgba(59, 130, 246, 0.1);
+    }
+    .nav-item.active {
+      background-color: #3b82f6;
+      color: white;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex text-gray-800">
+  <!-- Sidebar -->
+  <div class="sidebar bg-white shadow-lg fixed h-full overflow-y-auto">
+    <div class="p-4 border-b border-gray-200">
+      <div class="flex items-center space-x-3 space-x-reverse">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Coat_of_arms_of_Palestine.svg" 
+             alt="شعار فلسطين" class="w-10 h-10">
+        <div>
+          <h1 class="font-bold text-lg">نظام الإرشاد المدرسي</h1>
+          <p class="text-sm text-gray-500">لوحة التحكم</p>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="mt-6">
+      <div class="px-4 mb-4">
+        <p class="text-xs font-semibold text-gray-500 uppercase">القائمة الرئيسية</p>
+      </div>
+      
+      <a href="#" class="nav-item active flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50">
+        <i class="fas fa-tachometer-alt ml-3"></i>
+        <span>الرئيسية</span>
+      </a>
+      
+      <div class="px-4 mt-6 mb-2">
+        <p class="text-xs font-semibold text-gray-500 uppercase">إدارة التقارير</p>
+      </div>
+      
+      <div class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 cursor-pointer" onclick="toggleSubmenu('reports-menu')">
+        <i class="fas fa-file-alt ml-3"></i>
+        <span>التقارير</span>
+        <i class="fas fa-chevron-down mr-auto text-xs text-gray-400 transition-transform duration-200" id="reports-arrow"></i>
+      </div>
+      
+      <!-- Reports Submenu -->
+      <div id="reports-menu" class="hidden bg-gray-50 mr-4 rounded-lg">
+        <!-- التقارير اليومية -->
+        <a href="تقرير البرنامج اليومي والاسبوعي.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="far fa-calendar-alt ml-2"></i> التقرير اليومي والأسبوعي
+        </a>
+        <a href="تقرير متابعة التأخر الصباحي.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="far fa-clock ml-2"></i> متابعة التأخر الصباحي
+        </a>
+        <a href="تقرير متابعة غياب الطلاب.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-user-clock ml-2"></i> متابعة غياب الطلاب
+        </a>
+        
+        <!-- التقارير الأسبوعية -->
+        <div class="px-6 py-2 text-xs font-medium text-gray-500 uppercase mt-2">التقارير الأسبوعية</div>
+        <a href="تقرير متابعة الارشاد الجماعي.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-users ml-2"></i> متابعة الإرشاد الجماعي
+        </a>
+        <a href="رصد عدد جلسات الارشاد الجماعي.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-chalkboard-teacher ml-2"></i> جلسات الإرشاد الجماعي
+        </a>
+        <a href="تقرير مجلة الحائط.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="far fa-newspaper ml-2"></i> مجلة الحائط
+        </a>
+        
+        <!-- تقارير الحالات -->
+        <div class="px-6 py-2 text-xs font-medium text-gray-500 uppercase mt-2">تقارير الحالات</div>
+        <a href="تقرير دراسة حالة.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-file-medical ml-2"></i> دراسة الحالة
+        </a>
+        <a href="تقرير رصد الحالات والمشكلات الاجتماعية.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-hands-helping ml-2"></i> المشكلات الاجتماعية
+        </a>
+        <a href="تقرير رصد الحالات والمشكلات السلوكية.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-exclamation-triangle ml-2"></i> المشكلات السلوكية
+        </a>
+        <a href="تقرير رصد الحالات والمشكلات الصحية والنفسية.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-heartbeat ml-2"></i> المشكلات الصحية والنفسية
+        </a>
+        <a href="تقرير رصد الحالات والمشكلات الأكاديمية.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-book-reader ml-2"></i> المشكلات الأكاديمية
+        </a>
+        
+        <!-- تقارير المتابعة -->
+        <div class="px-6 py-2 text-xs font-medium text-gray-500 uppercase mt-2">تقارير المتابعة</div>
+        <a href="تقرير متابعة المقابلات.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-handshake ml-2"></i> متابعة المقابلات
+        </a>
+        <a href="تقرير متابعة حالات التسرب.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-user-graduate ml-2"></i> متابعة حالات التسرب
+        </a>
+        <a href="رصد الحالات الساخنة.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-fire ml-2"></i> الحالات الساخنة
+        </a>
+        
+        <!-- النماذج -->
+        <div class="px-6 py-2 text-xs font-medium text-gray-500 uppercase mt-2">النماذج</div>
+        <a href="نموذج الاذاعة الصباحية.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-broadcast-tower ml-2"></i> الإذاعة الصباحية
+        </a>
+        <a href="نموذج رصد الانشطة.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-tasks ml-2"></i> رصد الأنشطة
+        </a>
+        <a href="نموذج رصد المشكلات وقضايا الطلبة.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500">
+          <i class="fas fa-clipboard-list ml-2"></i> قضايا الطلبة
+        </a>
+      </div>
+      
+      <div class="px-4 mt-6 mb-2">
+        <p class="text-xs font-semibold text-gray-500 uppercase">إدارة البيانات</p>
+      </div>
+      <a href="#" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50" onclick="toggleSubmenu('data-entry-menu')">
+        <i class="fas fa-edit ml-3"></i>
+        <span>إدخال البيانات</span>
+        <i class="fas fa-chevron-down mr-auto text-xs text-gray-400 transition-transform duration-200" id="data-entry-arrow"></i>
+      </a>
+      
+      <!-- Data Entry Submenu -->
+      <div id="data-entry-menu" class="hidden bg-gray-50 mr-4 rounded-lg">
+        <!-- Daily/Weekly Reports -->
+        <a href="forms/daily_weekly_entry.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500 transition-colors duration-200">
+          <i class="far fa-calendar-alt ml-2"></i> التقرير اليومي والأسبوعي
+        </a>
+        
+        <!-- Student Tracking -->
+        <a href="forms/student_absence_entry.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500 transition-colors duration-200">
+          <i class="fas fa-user-clock ml-2"></i> متابعة غياب الطلاب
+        </a>
+        
+        <a href="forms/morning_delay_entry.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500 transition-colors duration-200">
+          <i class="far fa-clock ml-2"></i> متابعة التأخر الصباحي
+        </a>
+        
+        <!-- Case Management -->
+        <a href="forms/case_study_entry.html" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500 transition-colors duration-200">
+          <i class="fas fa-user-graduate ml-2"></i> دراسة الحالة
+        </a>
+        
+        <!-- Group Guidance -->
+        <a href="#" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500 transition-colors duration-200">
+          <i class="fas fa-users ml-2"></i> متابعة الإرشاد الجماعي
+        </a>
+        
+        <a href="#" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500 transition-colors duration-200">
+          <i class="fas fa-chalkboard-teacher ml-2"></i> رصد التوجيه الجمعي
+        </a>
+        
+        <!-- Special Cases -->
+        <a href="#" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500 transition-colors duration-200">
+          <i class="fas fa-exclamation-triangle ml-2"></i> رصد الحالات الساخنة
+        </a>
+        
+        <a href="#" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500 transition-colors duration-200">
+          <i class="fas fa-user-slash ml-2"></i> متابعة حالات التسرب
+        </a>
+        
+        <!-- Other Reports -->
+        <a href="#" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500 transition-colors duration-200">
+          <i class="fas fa-tasks ml-2"></i> رصد الأنشطة
+        </a>
+        
+        <a href="#" class="block px-6 py-2 text-sm text-gray-700 hover:bg-blue-100 rounded-r-lg border-r-2 border-transparent hover:border-blue-500 transition-colors duration-200">
+          <i class="fas fa-clipboard-list ml-2"></i> قضايا الطلبة
+        </a>
+      </div>
+      
+      <div class="px-4 mt-6 mb-2">
+        <p class="text-xs font-semibold text-gray-500 uppercase">إدارة المستخدمين</p>
+      </div>
+      <a href="#" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50">
+        <i class="fas fa-users-cog ml-3"></i>
+        <span>إدارة المستخدمين</span>
+      </a>
+      <a href="#" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50">
+        <i class="fas fa-cog ml-3"></i>
+        <span>الإعدادات</span>
+      </a>
+      
+      <div class="absolute bottom-0 w-full p-4 border-t border-gray-200">
+        <button id="logoutBtn" class="w-full flex items-center justify-center px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
+          <i class="fas fa-sign-out-alt ml-2"></i>
+          <span>تسجيل الخروج</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content flex-1 bg-gray-50">
+    <!-- Top Bar -->
+    <header class="bg-white shadow-sm">
+      <div class="flex justify-between items-center p-4">
+        <div class="flex items-center">
+          <button id="sidebarToggle" class="lg:hidden text-gray-600 hover:text-gray-900">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+          <h1 class="text-xl font-bold mr-4">لوحة التحكم</h1>
+        </div>
+        
+        <div class="flex items-center space-x-4 space-x-reverse">
+          <div class="relative">
+            <i class="fas fa-bell text-gray-500 text-xl cursor-pointer"></i>
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-white text-xs flex items-center justify-center">3</span>
+          </div>
+          <div class="flex items-center space-x-2 space-x-reverse">
+            <img src="https://ui-avatars.com/api/?name=مرشد+تربوي&background=3b82f6&color=fff" 
+                 alt="صورة المستخدم" class="w-8 h-8 rounded-full">
+            <span class="font-medium">مرحباً، المرشد التربوي</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="p-6">
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <div class="bg-white rounded-xl shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-500 text-sm">إجمالي التقارير</p>
+              <h3 class="text-2xl font-bold mt-1">1,248</h3>
+              <p class="text-green-500 text-sm mt-2">
+                <i class="fas fa-arrow-up"></i> 12% عن الشهر الماضي
+              </p>
+            </div>
+            <div class="p-3 bg-blue-50 rounded-lg text-blue-500">
+              <i class="fas fa-file-alt text-2xl"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-500 text-sm">التقارير النشطة</p>
+              <h3 class="text-2xl font-bold mt-1">842</h3>
+              <p class="text-green-500 text-sm mt-2">
+                <i class="fas fa-arrow-up"></i> 8% عن الأسبوع الماضي
+              </p>
+            </div>
+            <div class="p-3 bg-green-50 rounded-lg text-green-500">
+              <i class="fas fa-check-circle text-2xl"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-500 text-sm">حالات الطوارئ</p>
+              <h3 class="text-2xl font-bold mt-1">12</h3>
+              <p class="text-red-500 text-sm mt-2">
+                <i class="fas fa-exclamation-triangle"></i> تحتاج متابعة
+              </p>
+            </div>
+            <div class="p-3 bg-red-50 rounded-lg text-red-500">
+              <i class="fas fa-exclamation-triangle text-2xl"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-gray-500 text-sm">المستخدمون النشطون</p>
+              <h3 class="text-2xl font-bold mt-1">24</h3>
+              <p class="text-blue-500 text-sm mt-2">
+                <i class="fas fa-users"></i> 5 مستخدمون متصلون الآن
+              </p>
+            </div>
+            <div class="p-3 bg-purple-50 rounded-lg text-purple-500">
+              <i class="fas fa-users text-2xl"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Reports Table -->
+      <div class="bg-white rounded-xl shadow overflow-hidden mb-6">
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex justify-between items-center">
+            <h2 class="text-lg font-semibold">أحدث التقارير</h2>
+            <button class="text-blue-500 hover:text-blue-700 text-sm font-medium">عرض الكل</button>
+          </div>
+        </div>
+        
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">رقم التقرير</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">نوع التقرير</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">التاريخ</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الحالة</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#RPT-2023-0042</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">تقرير البرنامج اليومي</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-11-28</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">مكتمل</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <a href="#" class="text-blue-600 hover:text-blue-900 ml-3"><i class="far fa-eye"></i></a>
+                  <a href="#" class="text-yellow-600 hover:text-yellow-900 ml-3"><i class="far fa-edit"></i></a>
+                  <a href="#" class="text-red-600 hover:text-red-900"><i class="far fa-trash-alt"></i></a>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#RPT-2023-0041</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">تقرير متابعة الغياب</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-11-27</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">قيد المراجعة</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <a href="#" class="text-blue-600 hover:text-blue-900 ml-3"><i class="far fa-eye"></i></a>
+                  <a href="#" class="text-yellow-600 hover:text-yellow-900 ml-3"><i class="far fa-edit"></i></a>
+                  <a href="#" class="text-red-600 hover:text-red-900"><i class="far fa-trash-alt"></i></a>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#RPT-2023-0040</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">تقرير الحالات السلوكية</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-11-26</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">عاجل</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <a href="#" class="text-blue-600 hover:text-blue-900 ml-3"><i class="far fa-eye"></i></a>
+                  <a href="#" class="text-yellow-600 hover:text-yellow-900 ml-3"><i class="far fa-edit"></i></a>
+                  <a href="#" class="text-red-600 hover:text-red-900"><i class="far fa-trash-alt"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="bg-gray-50 px-6 py-3 flex items-center justify-between border-t border-gray-200">
+          <div class="flex-1 flex justify-between sm:hidden">
+            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+              السابق
+            </a>
+            <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+              التالي
+            </a>
+          </div>
+          <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div>
+              <p class="text-sm text-gray-700">
+                عرض
+                <span class="font-medium">1</span>
+                إلى
+                <span class="font-medium">3</span>
+                من
+                <span class="font-medium">42</span>
+                نتائج
+              </p>
+            </div>
+            <div>
+              <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" dir="ltr">
+                <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                  <span class="sr-only">Next</span>
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="#" aria-current="page" class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                  1
+                </a>
+                <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                  2
+                </a>
+                <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                  3
+                </a>
+                <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                  <span class="sr-only">Previous</span>
+                  <i class="fas fa-chevron-left"></i>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quick Actions -->
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+        <i class="fas fa-tasks ml-3 text-blue-600"></i>
+        <span>إدخال البيانات</span>
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Daily/Weekly Report -->
+        <a href="forms/daily_weekly_entry.html" class="block group transform transition-transform duration-300 hover:-translate-y-1">
+          <div class="bg-white rounded-xl shadow-md p-6 h-full border-l-4 border-blue-500 hover:shadow-lg">
+            <div class="flex items-start">
+              <div class="p-3 rounded-lg bg-blue-50 text-blue-600 mr-4">
+                <i class="fas fa-calendar-day text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 group-hover:text-blue-600 text-lg">التقرير اليومي والأسبوعي</h3>
+                <p class="text-sm text-gray-500 mt-1">إدخال بيانات الأنشطة اليومية والأسبوعية</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Student Absence -->
+        <a href="forms/student_absence_entry.html" class="block group transform transition-transform duration-300 hover:-translate-y-1">
+          <div class="bg-white rounded-xl shadow-md p-6 h-full border-l-4 border-green-500 hover:shadow-lg">
+            <div class="flex items-start">
+              <div class="p-3 rounded-lg bg-green-50 text-green-600 mr-4">
+                <i class="fas fa-user-clock text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 group-hover:text-green-600 text-lg">متابعة غياب الطلاب</h3>
+                <p class="text-sm text-gray-500 mt-1">تسجيل حالات الغياب والحضور اليومية</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Morning Delay -->
+        <a href="forms/morning_delay_entry.html" class="block group transform transition-transform duration-300 hover:-translate-y-1">
+          <div class="bg-white rounded-xl shadow-md p-6 h-full border-l-4 border-yellow-500 hover:shadow-lg">
+            <div class="flex items-start">
+              <div class="p-3 rounded-lg bg-yellow-50 text-yellow-600 mr-4">
+                <i class="far fa-clock text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 group-hover:text-yellow-600 text-lg">متابعة التأخر الصباحي</h3>
+                <p class="text-sm text-gray-500 mt-1">تسجيل حالات التأخير الصباحي وأسبابه</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Case Study -->
+        <a href="forms/case_study_entry.html" class="block group transform transition-transform duration-300 hover:-translate-y-1">
+          <div class="bg-white rounded-xl shadow-md p-6 h-full border-l-4 border-purple-500 hover:shadow-lg">
+            <div class="flex items-start">
+              <div class="p-3 rounded-lg bg-purple-50 text-purple-600 mr-4">
+                <i class="fas fa-user-graduate text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 group-hover:text-purple-600 text-lg">دراسة الحالة</h3>
+                <p class="text-sm text-gray-500 mt-1">تسجيل وتتبع حالات الطلاب الخاصة</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Group Guidance -->
+        <a href="#" class="block group transform transition-transform duration-300 hover:-translate-y-1">
+          <div class="bg-white rounded-xl shadow-md p-6 h-full border-l-4 border-indigo-500 hover:shadow-lg">
+            <div class="flex items-start">
+              <div class="p-3 rounded-lg bg-indigo-50 text-indigo-600 mr-4">
+                <i class="fas fa-users text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 group-hover:text-indigo-600 text-lg">الإرشاد الجماعي</h3>
+                <p class="text-sm text-gray-500 mt-1">تسجيل جلسات الإرشاد الجماعي</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Hot Cases -->
+        <a href="#" class="block group transform transition-transform duration-300 hover:-translate-y-1">
+          <div class="bg-white rounded-xl shadow-md p-6 h-full border-l-4 border-red-500 hover:shadow-lg">
+            <div class="flex items-start">
+              <div class="p-3 rounded-lg bg-red-50 text-red-600 mr-4">
+                <i class="fas fa-exclamation-triangle text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 group-hover:text-red-600 text-lg">الحالات الساخنة</h3>
+                <p class="text-sm text-gray-500 mt-1">رصد ومتابعة الحالات الطارئة</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        
+        <a href="#" class="block group">
+          <div class="bg-white rounded-xl shadow p-6 h-full transition-all duration-300 hover:shadow-lg hover:border-blue-500 border-2 border-transparent">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
+                <i class="fas fa-user-clock text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 group-hover:text-blue-600">متابعة الغياب والتأخر</h3>
+                <p class="text-sm text-gray-500">تسجيل حالات الغياب والتأخر الصباحي</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        
+        <a href="#" class="block group">
+          <div class="bg-white rounded-xl shadow p-6 h-full transition-all duration-300 hover:shadow-lg hover:border-blue-500 border-2 border-transparent">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
+                <i class="fas fa-users text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 group-hover:text-blue-600">الإرشاد الجماعي</h3>
+                <p class="text-sm text-gray-500">تسجيل جلسات الإرشاد الجماعي</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <h2 class="text-xl font-bold text-gray-800 mb-4">عرض التقارير</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a href="تقرير البرنامج اليومي والاسبوعي.html" class="block group">
+          <div class="bg-white rounded-xl shadow p-6 h-full hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-center mb-4">
+              <div class="p-3 bg-blue-100 rounded-lg text-blue-600 mr-3">
+                <i class="fas fa-calendar-day text-xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold">التقرير اليومي والأسبوعي</h3>
+            </div>
+            <p class="text-gray-600 text-sm">إدخال بيانات الأنشطة اليومية والأسبوعية</p>
+          </div>
+        </a>
+        
+        <a href="تقرير متابعة التأخر الصباحي.html" class="block group">
+          <div class="bg-white rounded-xl shadow p-6 h-full hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-center mb-4">
+              <div class="p-3 bg-yellow-100 rounded-lg text-yellow-600 mr-3">
+                <i class="far fa-clock text-xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold">متابعة التأخر الصباحي</h3>
+            </div>
+            <p class="text-gray-600 text-sm">تسجيل حالات التأخر الصباحي</p>
+          </div>
+        </a>
+        
+        <a href="تقرير متابعة غياب الطلاب.html" class="block group">
+          <div class="bg-white rounded-xl shadow p-6 h-full hover:shadow-md transition-shadow duration-200">
+            <div class="flex items-center mb-4">
+              <div class="p-3 bg-red-100 rounded-lg text-red-600 mr-3">
+                <i class="fas fa-user-clock text-xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold">متابعة غياب الطلاب</h3>
+            </div>
+            <p class="text-gray-600 text-sm">تسجيل حالات غياب الطلاب</p>
+          </div>
+        </a>
+        
+        <a href="#" class="block group">
+          <div class="bg-white rounded-xl shadow p-6 h-full transition-all duration-300 hover:shadow-lg hover:border-blue-500 border-2 border-transparent">
+            <div class="flex items-center">
+              <div class="p-3 rounded-full bg-gray-100 text-gray-600 mr-4">
+                <i class="fas fa-plus text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 group-hover:text-blue-600">نموذج جديد</h3>
+                <p class="text-sm text-gray-500">إضافة نموذج جديد</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      
+      <!-- Quick Links -->
+      <div class="mt-8">
+        <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+          <i class="fas fa-link ml-3 text-blue-600"></i>
+          <span>روابط سريعة</span>
+        </h2>
+        <div class="text-sm text-gray-500">
+          <span class="hidden md:inline">آخر تحديث:</span>
+          <span id="lastUpdated">اليوم</span>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <a href="forms/daily_weekly_entry.html" class="bg-white rounded-xl shadow p-4 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border-t-4 border-blue-500">
+          <div class="bg-blue-50 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+            <i class="far fa-calendar-alt text-blue-600 text-xl"></i>
+          </div>
+          <div class="font-semibold text-gray-800">تقرير يومي/أسبوعي</div>
+          <div class="text-xs text-gray-500 mt-1">إدخال البيانات</div>
+        </a>
+        
+        <a href="forms/student_absence_entry.html" class="bg-white rounded-xl shadow p-4 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border-t-4 border-green-500">
+          <div class="bg-green-50 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-user-clock text-green-600 text-xl"></i>
+          </div>
+          <div class="font-semibold text-gray-800">تسجيل الغياب</div>
+          <div class="text-xs text-gray-500 mt-1">حضور وغياب الطلاب</div>
+        </a>
+        
+        <a href="forms/morning_delay_entry.html" class="bg-white rounded-xl shadow p-4 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border-t-4 border-yellow-500">
+          <div class="bg-yellow-50 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+            <i class="far fa-clock text-yellow-600 text-xl"></i>
+          </div>
+          <div class="font-semibold text-gray-800">التأخر الصباحي</div>
+          <div class="text-xs text-gray-500 mt-1">تسجيل حالات التأخير</div>
+        </a>
+        
+        <a href="forms/case_study_entry.html" class="bg-white rounded-xl shadow p-4 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border-t-4 border-purple-500">
+          <div class="bg-purple-50 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-user-graduate text-purple-600 text-xl"></i>
+          </div>
+          <div class="font-semibold text-gray-800">دراسة الحالة</div>
+          <div class="text-xs text-gray-500 mt-1">تسجيل الحالات الفردية</div>
+        </a>
+        
+        <a href="#" class="bg-white rounded-xl shadow p-4 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border-t-4 border-red-500">
+          <div class="bg-red-50 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+          </div>
+          <div class="font-semibold text-gray-800">الحالات الساخنة</div>
+          <div class="text-xs text-gray-500 mt-1">المتابعة اليومية</div>
+        </a>
+          <a href="تقرير متابعة التأخر الصباحي.html" class="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow">
+            <div class="text-yellow-500 text-2xl mb-2"><i class="far fa-clock"></i></div>
+            <span class="text-sm font-medium">التأخر الصباحي</span>
+          </a>
+          <a href="تقرير متابعة الارشاد الجماعي.html" class="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow">
+            <div class="text-purple-500 text-2xl mb-2"><i class="fas fa-users"></i></div>
+            <span class="text-sm font-medium">الإرشاد الجماعي</span>
+          </a>
+          <a href="تقرير الندوات والمحاضرات.html" class="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow">
+            <div class="text-green-500 text-2xl mb-2"><i class="fas fa-chalkboard-teacher"></i></div>
+            <span class="text-sm font-medium">الندوات والمحاضرات</span>
+          </a>
+          <a href="نموذج الاذاعة الصباحية.html" class="bg-white rounded-lg shadow p-4 text-center hover:shadow-md transition-shadow">
+            <div class="text-red-500 text-2xl mb-2"><i class="fas fa-broadcast-tower"></i></div>
+            <span class="text-sm font-medium">الإذاعة المدرسية</span>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Toggle sidebar on mobile
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+      document.querySelector('.sidebar').classList.toggle('active');
+    });
+    
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      
+      if (window.innerWidth < 1024 && !sidebar.contains(event.target) && event.target !== sidebarToggle) {
+        sidebar.classList.remove('active');
+      }
+    });
+    
+    // Toggle submenu
+    function toggleSubmenu(menuId) {
+      const menu = document.getElementById(menuId);
+      const arrow = document.getElementById(menuId + '-arrow');
+      
+      // Close all other submenus
+      document.querySelectorAll('.submenu').forEach(submenu => {
+        if (submenu.id !== menuId && !submenu.classList.contains('hidden')) {
+          submenu.classList.add('hidden');
+          const otherArrow = document.getElementById(submenu.id + '-arrow');
+          if (otherArrow) otherArrow.classList.remove('rotate-180');
+        }
+      });
+      
+      // Toggle current submenu
+      if (menu) menu.classList.toggle('hidden');
+      if (arrow) arrow.classList.toggle('rotate-180');
+    }
+    
+    // Active nav item
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        // Don't toggle active class for items with submenus
+        if (!this.querySelector('i.fa-chevron-down')) {
+          navItems.forEach(i => i.classList.remove('active', 'text-white'));
+          this.classList.add('active', 'text-white');
+        }
+      });
+    });
+    
+    // Set active menu item based on current page
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentPage = window.location.pathname.split('/').pop() || 'dashboard.html';
+      const menuLinks = document.querySelectorAll('a[href]');
+      
+      menuLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+          link.classList.add('bg-blue-50', 'text-blue-600', 'border-r-2', 'border-blue-500');
+        }
+      });
+    });
+    
+    // Logout confirmation
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+      Swal.fire({
+        title: 'تأكيد تسجيل الخروج',
+        text: 'هل أنت متأكد من رغبتك في تسجيل الخروج؟',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'نعم، سجل خروج',
+        cancelButtonText: 'إلغاء',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirect to login page or perform logout logic
+          window.location.href = 'index.html';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

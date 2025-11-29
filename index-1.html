@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة تقارير الإرشاد</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- خط كايرو -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.icons8.com/?size=100&id=EBTRnyzoVTBa&format=png&color=000000">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #dbeafe, #ecfdf5, #fef9f9, #f0f9ff);
+      background-size: 400% 400%;
+      animation: gradient 18s ease infinite;
+    }
+
+    @keyframes gradient {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header img {
+      width: 90px;
+      margin: 0 auto 12px;
+      display: block;
+      animation: pop 1.1s ease;
+    }
+
+    @keyframes pop {
+      0%   { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .school-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .container-box {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(18px) saturate(180%);
+      padding: 2.2rem;
+      border-radius: 24px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.15);
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(25px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .report-btn {
+      background: #fff;
+      border-radius: 18px;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .report-btn:hover {
+      background: #eff6ff;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    /* Login Box */
+    #loginBox {
+      display: none; /* مخفي افتراضياً */
+
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(192, 240, 247, 0.185);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+    }
+    #loginBoxInner {
+      background:white;
+      padding:30px;
+      border-radius:12px;
+      text-align:center;
+      box-shadow:0 8px 24px rgba(0,0,0,0.2);
+    }
+    #loginBoxInner input {
+      padding:10px;
+      width:200px;
+      margin-bottom:10px;
+      border-radius:8px;
+      border:1px solid #ccc;
+    }
+    #loginBoxInner button {
+      padding:10px 20px;
+      border:none;
+      border-radius:8px;
+      background:#3b82f6;
+      color:white;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    #loginBoxInner button:hover { background:#2563eb; }
+    
+
+
+
+
+
+    /* 🎯 تحسين عرض الهيدر والشعار على الموبايل */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column; /* يجعل العناصر فوق بعض */
+    align-items: center;
+    text-align: center;
+  }
+
+  .logo {
+    order: -1;               /* يخلي الشعار فوق النص */
+    position: static;        /* يلغي الوضع المطلق */
+    transform: none;
+    margin-bottom: 0.5rem;   /* مسافة صغيرة بين الشعار والعنوان */
+    width: 50px;             /* حجم مناسب للموبايل */
+    height: auto;
+  }
+
+  header h1 {
+    font-size: 1.6rem;       /* خط أصغر على الموبايل */
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+}
+
+/* 🎯 جعل الخطوط مرنة على كل الأجهزة */
+header h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+header p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+/* 🎯 تحسين الحقول في البطاقات على الموبايل */
+@media (max-width: 600px) {
+  .field {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .field label {
+    width: 100%;
+    margin-bottom: 0.3rem;
+  }
+  .field span {
+    width: 100%;
+  }
+}
+/* دائرة التحميل */
+.loader {
+  border: 5px solid #f3f3f3; /* رمادي فاتح */
+  border-top: 5px solid #3498db; /* أزرق */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 15px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+  </style>
+</head>
+<body class="flex flex-col items-center">
+
+  <!-- Login Box -->
+<div id="loginBox" style="display:none;">
+  <div id="loginBoxInner">
+    <!-- الشعار أعلى مربع الإدخال -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Coat_of_arms_of_Palestine.svg" 
+         alt="شعار فلسطين" class="mx-auto mb-4 w-16">
+    
+    <!-- نص ترحيبي جميل -->
+    <h2 class="text-xl font-bold mb-2">مرحبًا بك في لوحة تقارير الإرشاد</h2>
+    <h3 class="text-xs font-bold mb-2">المرشد التربوي أيمن غانم </h3>
+
+    <p class="text-sm text-gray-600 mb-4"> أدخل كلمة المرور للاستمرار </p>
+    
+    <!-- مربع كلمة المرور -->
+    <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور" class="mb-3">
+    <br>
+    
+    <!-- زر الدخول -->
+    <button onclick="checkPassword()">دخول</button>
+    <!-- دائرة التحميل -->
+<div id="loader" class="loader" style="display:none;"></div>
+
+    <!-- رسالة الخطأ -->
+    <p id="loginMessage" class="text-red-500 mt-2"></p>
+    
+  </div>
+</div>
+
+ 
+  <!-- محتوى الصفحة -->
+  <main id="mainContent" class="container-box mt-8 w-full max-w-6xl" style="display:none;">
+    <header class="text-center mb-6">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Coat_of_arms_of_Palestine.svg" alt="شعار فلسطين">
+      <h1 class="text-2xl font-bold">لوحة تقارير الإرشاد التربوي</h1>
+      <p class="text-sm opacity-100">اختر التقرير المراد تصفيته أو طباعته</p>
+      <p class="text-sm opacity-90">المرشد التربوي أيمن غانم</p>
+    </header>
+
+    <!-- إضافة مربع البحث -->
+   <!-- مربع البحث وزر الخروج الصغير -->
+<div class="mb-6 flex justify-center items-center space-x-2">
+  <input type="text" id="searchInput" placeholder="🔍 ابحث عن تقرير..." 
+         class="w-full max-w-md p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+         onkeyup="filterReports()">
+         <p></p>
+                  <p></p>
+
+  <button id="logoutBtn" 
+          class="p-1 px-2 text-xs bg-red-500 text-white rounded hover:bg-red-600 transition"
+          style="display:none;">
+    تسجيل الخروج
+  </button>
+</div>
+
+
+   <!-- الأزرار -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
+
+  <!-- البرامج والمتابعات -->
+  <button onclick="window.location.href='تقرير البرنامج اليومي والاسبوعي.html'" class="report-btn">📅 البرنامج اليومي والأسبوعي</button>
+  <button onclick="window.location.href='الخطة الارشادية.html'" class="report-btn">📋 الخطة الإرشادية</button>
+  <button onclick="window.location.href='تقرير متابعة الارشاد الجماعي.html'" class="report-btn">📘 متابعة الإرشاد الجماعي</button>
+  <button onclick="window.location.href='تقرير متابعة المقابلات.html'" class="report-btn">🎯 متابعة المقابلات</button>
+  <button onclick="window.location.href='تقرير متابعة غياب الطلاب.html'" class="report-btn">📌 متابعة غياب الطلاب</button>
+  <button onclick="window.location.href='تقرير متابعة التأخر الصباحي.html'" class="report-btn">⏰ متابعة التأخر الصباحي</button>
+  <button onclick="window.location.href='متابعة لقاءات التوجيه الجمعي.html'" class="report-btn">📊 متابعة لقاءات التوجيه الجمعي</button>
+
+  <!-- الرصد -->
+  <button onclick="window.location.href='تقرير رصد الاستشارات الطلابية.html'" class="report-btn">📝 رصد الاستشارات الطلابية</button>
+  <button onclick="window.location.href='تقرير رصد التوجيه الجمعي.html'" class="report-btn">🤝 رصد التوجيه الجمعي</button>
+  <button onclick="window.location.href='تقرير رصد الحالات والمشكلات الاجتماعية.html'" class="report-btn">🏠 رصد المشكلات الاجتماعية</button>
+  <button onclick="window.location.href='تقرير رصد الحالات والمشكلات السلوكية.html'" class="report-btn">⚠️ رصد المشكلات السلوكية</button>
+  <button onclick="window.location.href='تقرير رصد الحالات والمشكلات الصحية والنفسية.html'" class="report-btn">💊 رصد المشكلات الصحية والنفسية</button>
+  <button onclick="window.location.href='تقرير رصد الحالات والمشكلات الأكاديمية.html'" class="report-btn">📚 رصد المشكلات الأكاديمية</button>
+  <button onclick="window.location.href='تقرير رصد حالات التسرب.html'" class="report-btn">🚪 رصد حالات التسرب</button>
+  <button onclick="window.location.href='تقرير متابعة حالات التسرب.html'" class="report-btn">🔍 متابعة التسرب</button>
+  <button onclick="window.location.href='رصد غياب الطلاب.html'" class="report-btn">📝 رصد غياب الطلاب</button>
+  <button onclick="window.location.href='رصد المقابلات.html'" class="report-btn">📄 رصد المقابلات</button>
+  <button onclick="window.location.href='رصد الحالات الساخنة.html'" class="report-btn">🔥 رصد الحالات الساخنة</button>
+  <button onclick="window.location.href='رصد عدد جلسات الارشاد الجماعي.html'" class="report-btn">👥 رصد عدد جلسات الإرشاد الجماعي</button>
+  <button onclick="window.location.href='نموذج رصد الانشطة.html'" class="report-btn">🎭 رصد الأنشطة</button>
+    <button onclick="window.location.href='نموذج رصد المشكلات وقضايا الطلبة.html'" class="report-btn">📢نموذج رصد المشكلات وقضايا الطلبة</button>
+   <button onclick="window.location.href='Agenda.html'" class="report-btn">🗓️الانشطة - الاجندة</button>
+
+
+  <!-- الأنشطة والفعاليات -->
+  <button onclick="window.location.href='تقرير الزيارات.html'" class="report-btn">👥 الزيارات</button>
+  <button onclick="window.location.href='تقرير الندوات والمحاضرات.html'" class="report-btn">🎤 الندوات والمحاضرات</button>
+  <button onclick="window.location.href='تقرير النشرات الارشادية.html'" class="report-btn">📖 النشرات الإرشادية</button>
+  <button onclick="window.location.href='تقرير دراسة حالة.html'" class="report-btn">📑 دراسة حالة</button>
+  <button onclick="window.location.href='تقرير مجلة الحائط.html'" class="report-btn">📰 مجلة الحائط</button>
+  <button onclick="window.location.href='نموذج الاذاعة الصباحية.html'" class="report-btn">📢 الإذاعة الصباحية</button>
+    <button onclick="window.location.href='ai.html'" class="report-btn">🤖 Ai - بوابة السلوك الطلابي</button>
+   
+
+
+
+</section>
+
+  </main>
+
+  <script>
+  // رابط سكربتك (اللي أعطيتَه)
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxv-iysQYSKuRewH0AEKSR-kpEifFwUQ_WHq_T1XBUN1zN16SKpbby85nky9Llu-HA8/exec";
+
+  // تحقق عند إدخال كلمة المرور - يطلب كلمة المرور من الشيت عبر السكربت
+  function checkPassword() {
+  const input = document.getElementById('passwordInput').value.trim();
+  const msg = document.getElementById('loginMessage');
+  const loader = document.getElementById('loader');
+
+  if (input === "") {
+    msg.textContent = "الرجاء إدخال كلمة المرور!";
+    return;
+  }
+
+  // إظهار الدائرة وإخفاء الرسالة مؤقتًا
+  loader.style.display = "block";
+  msg.textContent = "";
+
+  fetch(SCRIPT_URL + "?report=password")
+    .then(response => {
+      if (!response.ok) throw new Error("استجابة غير متوقعة");
+      return response.json();
+    })
+    .then(data => {
+      loader.style.display = "none"; // إخفاء الدائرة
+      if (data && data.password && input === data.password.toString().trim()) {
+        sessionStorage.setItem("authPassed", "true");
+        showContent();
+      } else {
+        msg.textContent = "كلمة المرور غير صحيحة!";
+      }
+    })
+    .catch(err => {
+      loader.style.display = "none"; // إخفاء الدائرة
+      console.error("خطأ في جلب كلمة المرور:", err);
+      msg.textContent = "حدث خطأ أثناء التحقق!.";
+    });
+}
+
+
+  // عرض المحتوى وإخفاء مربع الدخول
+  function showContent() {
+    document.getElementById('loginBox').style.display = "none";
+    document.getElementById('mainContent').style.display = "block";
+    document.getElementById('logoutBtn').style.display = "inline-block";
+  }
+
+  // زر تسجيل الخروج
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    sessionStorage.removeItem("authPassed");
+    document.getElementById('loginBox').style.display = "flex";
+    document.getElementById('mainContent').style.display = "none";
+    document.getElementById('logoutBtn').style.display = "none";
+    document.getElementById('passwordInput').value = "";
+    document.getElementById('loginMessage').textContent = "";
+  });
+
+  window.addEventListener("DOMContentLoaded", () => {
+  // إذا تم تسجيل الدخول سابقًا، عرض المحتوى مباشرة
+  if (sessionStorage.getItem("authPassed") === "true") {
+    showContent();
+  } else {
+    // كلمة المرور لم تُدخل بعد → عرض المربع
+    document.getElementById('loginBox').style.display = "flex";
+  }
+});
+
+
+  // تفعيل Enter داخل حقل كلمة المرور
+  document.getElementById("passwordInput").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      checkPassword();
+    }
+  });
+
+  // فلتر البحث (يبقى كما هو)
+  function filterReports() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const buttons = document.querySelectorAll('.report-btn');
+
+    buttons.forEach(btn => {
+      const text = btn.textContent.toLowerCase();
+      if (text.includes(filter)) {
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+

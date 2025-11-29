@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, initial-scale=1.0">
+    <title>✅ جدار شرف المكرمين الزجاجي الراقي ✅</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Changa:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        /* [أنماط CSS] */
+        :root {
+            /* ================================================= */
+            /* 🎨 متغيرات الألوان القابلة للتغيير 🎨 */
+            /* ================================================= */
+            --color-card-primary: #10B981; /* أخضر زمردي إيجابي */
+            --color-card-secondary: #34D399; /* أخضر فاتح للتدرج */
+            --color-highlight-text: #1F2937; /* لون نص داكن على الألوان الفاتحة */
+            
+            /* ================================================= */
+            /* ⚙️ متغيرات النظام العامة (لا يُنصح بتغييرها) ⚙️ */
+            /* ================================================= */
+            --color-primary-text: var(--color-highlight-text); 
+            --color-secondary-text: #4B5563; 
+            --color-glass-bg: rgba(255, 255, 255, 0.9);
+            --color-glass-border: rgba(255, 255, 255, 0.7); 
+            --font-header: 'Changa', sans-serif;
+            --font-body: 'Cairo', sans-serif;
+            --card-width: 90vw;
+            --card-height: 60vh;
+            --max-card-width: 950px; 
+            --max-card-height: 550px; 
+
+            /* 🌟 ألوان القصاصات الشفافة (CSS Confetti) 🌟 */
+            --confetti-color-1: rgba(255, 240, 150, 0.5); /* ذهبي فاتح وشفاف 50% */
+            --confetti-color-2: rgba(150, 230, 255, 0.4); /* سماوي فاتح وشفاف 40% */
+            --confetti-color-3: rgba(180, 255, 180, 0.6); /* أخضر فاتح وشفاف 60% */
+            --confetti-color-4: rgba(255, 255, 255, 0.3); /* أبيض خفيف 30% */
+        }
+
+        /* إجبار إظهار شريط الهاتف عبر JS عند التعرف على هاتف حتى لو لم تعمل ميديا كويري */
+        .is-mobile .right-toolbar { display: none !important; }
+        .is-mobile #mobileToolbar { display: flex !important; }
+        /* منتقي الطلاب كـ Bottom Sheet على الهواتف */
+        .is-mobile .picker-panel { right: 0 !important; left: 0 !important; top: auto !important; bottom: 0 !important; width: 100vw !important; max-height: 60vh !important; transform: none !important; border-radius: 18px 18px 0 0 !important; z-index: 2500 !important; }
+        .picker-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.28); display: none; z-index: 2400; }
+
+        /* شريط أدوات خاص بالهواتف أسفل البطاقات */
+        .mobile-toolbar {
+            display: none;
+            max-width: 1200px;
+            margin: 16px auto 0;
+            padding: 8px 10px;
+            background: rgba(255,255,255,.88);
+            border: 1px solid var(--color-glass-border);
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.06);
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .mobile-toolbar .tool-btn { width: 40px; height: 40px; font-size: 18px; }
+        .mobile-toolbar .tooltip { display: none; }
+        /* شارة النقاط الإيجابية */
+        .pos-badge {
+            display: inline-block;
+            margin-inline-start: 10px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: linear-gradient(45deg, var(--color-card-primary), var(--color-card-secondary));
+            color: #fff;
+            font-weight: 800;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden; 
+            
+            /* خلفية متحركة (درجات فاتحة جدًا) */
+            background: linear-gradient(-45deg,
+                #f7fff9,
+                #fefefe,
+                #f0fdf4,
+                #ecfdf5
+            );
+            
+            background-size: 800% 800%; 
+            animation: gradient 18s ease infinite;
+            color: var(--color-primary-text);
+        }
+
+       
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* شريط أدوات أيقونات يمين الصفحة */
+        .right-toolbar {
+            position: fixed;
+            right: 12px;
+            top: 30%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+        .tool-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--color-card-primary);
+            background: #fff;
+            color: var(--color-card-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            transition: transform .15s ease, background .2s ease, color .2s ease;
+        }
+        .tool-btn:hover { transform: translateY(-2px); background: var(--color-card-secondary); color: #0f5132; }
+        .tool-btn.active { background: var(--color-card-primary); color: #fff; }
+        .tool-btn .tooltip {
+            position: absolute;
+            right: 52px;
+            white-space: nowrap;
+            background: rgba(255,255,255,.95);
+            border: 1px solid var(--color-glass-border);
+            box-shadow: 0 6px 16px rgba(0,0,0,.08);
+            color: var(--color-primary-text);
+            font-family: var(--font-header);
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 10px;
+            border-radius: 10px;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateX(6px);
+            transition: opacity .15s ease, transform .15s ease;
+        }
+        .tool-btn:hover .tooltip { opacity: 1; transform: translateX(0); }
+
+        h1.title {
+            font-family: var(--font-header);
+            font-size: clamp(2.5em, 5vw, 4.8em);
+            color: var(--color-primary-text); 
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); 
+            margin-bottom: 5px; 
+            position: relative;
+        }
+        
+        .date-display {
+            font-family: var(--font-header);
+            font-size: clamp(1em, 2vw, 1.8em);
+            color: var(--color-secondary-text);
+            padding: 10px 20px;
+            margin-bottom: 30px; 
+            
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
+        }
+
+        #honorRoll {
+            width: var(--card-width); 
+            max-width: var(--max-card-width);
+            height: var(--card-height);
+            max-height: var(--max-card-height);
+            position: relative;
+            overflow: hidden;
+            border-radius: 28px;
+            
+            background: var(--color-glass-bg);
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1), 0 0 1px rgba(0,0,0,0.05); 
+            border: 2px solid var(--color-glass-border); 
+            
+            animation: fadeIn 1s ease-out; 
+            z-index: 10;
+        }
+
+        .left-progress {
+            position: fixed;
+            left: 10px;
+            bottom: 20px;
+            width: 10px;
+            height: calc(100vh - 40px);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.06);
+            overflow: hidden;
+            z-index: 999;
+        }
+        .left-progress .left-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(180deg, var(--color-card-secondary), var(--color-card-primary));
+            transition: height .6s ease;
+        }
+        .left-progress .left-label {
+            position: absolute;
+            left: 16px;
+            bottom: 10px;
+            color: var(--color-secondary-text);
+            font-family: var(--font-header);
+            font-weight: 800;
+            background: rgba(255,255,255,.7);
+            border: 1px solid var(--color-glass-border);
+            border-radius: 10px;
+            padding: 4px 8px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .large-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            padding: 40px;
+            box-sizing: border-box;
+            background: transparent; 
+            
+            opacity: 0;
+            z-index: 1;
+            transform: scale(0.9) translateX(100%);
+            transition: opacity 0.6s ease-in-out, transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .large-card.active {
+            opacity: 1;
+            z-index: 10;
+            transform: scale(1) translateX(0);
+        }
+
+        .large-card.exit {
+            opacity: 0;
+            z-index: 5;
+            transform: scale(1.1) translateX(-100%);
+        }
+
+        .card-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            padding-right: 50px;
+        }
+
+        .photo-area {
+            width: 280px;
+            height: 280px;
+            position: relative;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--color-card-primary), var(--color-card-secondary));
+            padding: 8px;
+            box-shadow: 0 0 20px var(--color-card-primary);
+        }
+
+        .student-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--color-glass-bg); 
+            animation: pulse 4s infinite ease-in-out;
+        }
+        
+        .card-details p {
+             color: var(--color-secondary-text);
+        }
+
+        .student-name {
+            font-family: var(--font-header);
+            font-size: clamp(2.4em, 5vw, 4.2em); 
+            font-weight: 900;
+            color: var(--color-primary-text); 
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+            margin-bottom: 10px;
+        }
+
+        .reward-tag {
+            display: block; 
+            font-size: clamp(1.2em, 3.5vw, 3.5em); 
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--color-card-primary) 0%, var(--color-card-secondary) 100%); 
+            color: #FFFFFF;
+            padding: 18px 45px; 
+            border-radius: 60px; 
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); 
+            margin-top: 30px; 
+            border: 4px solid var(--color-glass-border); 
+            transform: rotate(-1deg); 
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-in-out; 
+            text-align: center;
+            max-width: 90%; 
+            line-height: 1.2;
+            text-shadow: none; 
+        }
+        .reward-tag:hover {
+            transform: rotate(0deg) scale(1.05); 
+        }
+        
+        /* رسالة الخطأ والتحميل */
+        .message-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9); 
+            border: 4px dashed var(--color-card-primary);
+            border-radius: 15px;
+            font-size: 1.6em;
+            color: var(--color-primary-text);
+            width: 80%;
+            max-width: 500px;
+            z-index: 20;
+        }
+        
+        /* تأثيرات الفوز اللحظي (قصاصات داخل البطاقة) */
+        .confetti-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 15;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px; 
+            height: 20px;
+            background-color: var(--color-card-primary); 
+            opacity: 0;
+            animation: confetti-fall 3s ease-in forwards;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 5px var(--color-card-primary); }
+            50% { box-shadow: 0 0 25px var(--color-card-primary), 0 0 10px rgba(255, 255, 255, 0.5); }
+            100% { box-shadow: 0 0 5px var(--color-card-primary); }
+        }
+        
+        @keyframes confetti-fall {
+            0% { opacity: 1; transform: translateY(-100px) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+        }
+        
+        /* استجابة الجوال */
+        @media (max-width: 900px) {
+            #honorRoll {
+                width: 95vw;
+                height: 85vh; 
+                max-height: 600px;
+                padding: 15px;
+            }
+            .large-card {
+                flex-direction: column;
+                justify-content: flex-start; 
+                padding: 20px 10px;
+            }
+            .card-details {
+                padding-right: 0;
+                margin-top: 15px;
+            }
+            .photo-area {
+                width: 180px;
+                height: 180px;
+                margin-bottom: 5px;
+            }
+            .student-name {
+                font-size: 1em;
+            }
+            .reward-tag {
+                font-size: 1em; 
+                padding: 10px 20px;
+                transform: rotate(0deg); 
+                border-radius: 50px;
+            }
+            .date-display {
+                font-size: 1em;
+                padding: 8px 15px;
+            }
+        }
+
+        /* أجهزة لوحية (<= 1024px) */
+        @media (max-width: 1024px) {
+            :root { --card-width: 94vw; --max-card-width: 1000px; }
+            .right-toolbar { top: 24%; }
+            .title { margin-bottom: 8px; }
+            .date-display { margin-bottom: 18px; }
+        }
+
+        /* هواتف صغيرة جداً (<= 480px) */
+        @media (max-width: 480px) {
+            /* الشريط الجانبي يصبح شريط سفلي أفقي */
+            .right-toolbar { display: none; }
+            #mobileToolbar { display: flex; }
+
+            /* شريط التقدم يسار الشاشة يتقازم ويخفي العداد */
+            .left-progress { left: 6px; width: 6px; height: calc(100vh - 60px); }
+            .left-progress .left-label { display: none; }
+
+            /* لوحة اختيار الطالب تصبح ورقة سفلية */
+            .picker-panel {
+                right: 0; left: 0; top: auto; bottom: 0;
+                width: 100vw; max-height: 60vh; transform: none; border-radius: 18px 18px 0 0;
+            }
+            .picker-header { padding: 12px; }
+            .picker-header input { padding: 12px; }
+
+            /* نافذة اختيار التاريخ تتأقلم */
+            #rangeModal .modal-card { margin: 14vh auto; max-width: 92vw; border-radius: 16px; padding: 18px; }
+            #rangeModal .modal-card > div[style*="grid-template-columns"] { grid-template-columns: 1fr; }
+
+            /* شبكة المعرض تتأقلم */
+            .cards-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+
+            /* تكبير اللمس للنقرات */
+            .ctrl-btn { padding: 12px 14px; }
+
+            /* منع تداخل الشريط السفلي مع المحتوى */
+            body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+            
+            /* تقليل الحركة على الهواتف الصغيرة لتحسين الأداء */
+            .confetti-effect { display: none !important; }
+            .large-card { padding: 14px 10px; }
+            .card-details p { font-size: .95em; }
+            .student-name { font-size: 1.2em; }
+            .reward-tag { font-size: 1em; padding: 10px 16px; }
+            .photo-area { width: 160px; height: 160px; }
+            .message-box { width: 90%; font-size: 1.2em; padding: 18px; }
+
+            /* معرض جميع البطاقات: هيدر مدمج وبطاقات أصغر */
+            .all-cards-modal { padding: 8px 0 80px; }
+            .all-cards-content { padding: 8px 12px 96px; }
+            #printHeader { padding: 10px !important; border-radius: 12px !important; }
+            #printHeader > div:first-child { font-size: 1.3em !important; }
+            .mini-card { padding: 10px; border-radius: 14px; }
+            .mini-card .mini-photo-area { width: 80px; height: 80px; margin-bottom: 6px; }
+            .mini-card .mini-name { font-size: 1em; }
+            .mini-meta { gap: 6px; margin: 4px 0; }
+            .points-badge { padding: 3px 8px; font-size: .9em; }
+            .mini-card .mini-actions { gap: 8px; margin-top: 8px; }
+            .mini-icon { width: 32px; height: 32px; font-size: 14px; }
+
+            /* شريط أزرار أسفل المعرض أصغر */
+            .modal-footer-bar { padding: 8px 10px; position: fixed; top: auto; bottom: calc(0px + env(safe-area-inset-bottom)); left: 0; right: 0; }
+            .modal-footer-bar .ctrl-group { padding: 0 8px; gap: 8px; flex-wrap: wrap; justify-content: center; }
+            .modal-footer-bar .ctrl-btn { padding: 8px 10px; font-size: .9em; }
+        }
+
+        /* شاشات صغيرة جداً جداً */
+        @media (max-width: 360px) {
+            .cards-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+            .mini-card { padding: 8px; border-radius: 12px; }
+            .mini-card .mini-photo-area { width: 72px; height: 72px; }
+            .mini-card .mini-name { font-size: .95em; }
+            .mini-icon { width: 30px; height: 30px; font-size: 13px; }
+            #printHeader > div:first-child { font-size: 1.2em !important; }
+        }
+
+        /* هواتف متوسطة (<= 768px) */
+        @media (max-width: 768px) {
+            :root { --card-height: 70vh; }
+            .photo-area { width: 200px; height: 200px; }
+            .student-name { font-size: 1.6em; }
+            .reward-tag { font-size: 1.1em; padding: 12px 20px; }
+            .cards-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+        }
+        
+        /* --- تحسينات عامة للأزرار والنماذج --- */
+        .ctrl-btn {
+            border: 2px solid var(--color-card-primary);
+            background: #fff;
+            color: var(--color-card-primary);
+            font-family: var(--font-header);
+            font-weight: 800;
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .ctrl-btn:hover { background: var(--color-card-secondary); color: #0f5132; }
+        .ctrl-btn.primary { background: var(--color-card-primary); color: #fff; }
+        .ctrl-btn.primary:hover { filter: brightness(0.95); }
+
+        /* نمط المودال الخاص بعرض الكل */
+        .all-cards-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1500;
+            background: rgba(244, 244, 245, 0.95); /* خلفية فاتحة شفافة */
+            backdrop-filter: blur(8px);
+            overflow-y: auto;
+            display: none; /* يتم إظهاره بالـ JS */
+            padding: 20px 10px;
+        }
+        .all-cards-modal.show {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .all-cards-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 110px; /* حجز مساحة أسفل للأزرار المثبتة */
+        }
+        .all-cards-modal .all-cards-content { flex: 1; }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+            padding-bottom: 80px; /* مساحة لأزرار التحكم */
+        }
+        /* 4 أعمدة على سطح المكتب */
+        @media (min-width: 1200px) {
+            .cards-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .mini-card {
+            background: var(--color-glass-bg);
+            border: 1px solid var(--color-glass-border);
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.15s ease;
+            page-break-inside: avoid; /* لتفادي انقطاع البطاقة عند الطباعة */
+        }
+        .mini-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+        .mini-card .mini-actions { display:flex; justify-content:center; gap:10px; margin-top:12px; }
+        .mini-icon {
+            width: 36px; height: 36px; border-radius: 50%;
+            border: 2px solid var(--color-card-primary);
+            background:#fff; color: var(--color-card-primary);
+            display:flex; align-items:center; justify-content:center;
+            font-size: 16px; cursor: pointer; position: relative;
+            transition: transform .15s ease, background .2s ease, color .2s ease;
+        }
+        .mini-icon:hover { transform: translateY(-2px); background: var(--color-card-secondary); color:#0f5132; }
+        .mini-icon .tip {
+            position: absolute; bottom: 44px; right: 50%; transform: translateX(50%);
+            background: rgba(255,255,255,.98); color: var(--color-primary-text);
+            border: 1px solid var(--color-glass-border); border-radius: 10px;
+            padding: 4px 8px; font-size: 11px; font-weight: 800; font-family: var(--font-header);
+            white-space: nowrap; box-shadow: 0 6px 16px rgba(0,0,0,.08);
+            opacity: 0; pointer-events: none; transition: opacity .15s ease, transform .15s ease;
+        }
+        .mini-icon:hover .tip { opacity: 1; transform: translateX(50%) translateY(-2px); }
+        .mini-card.highlight { outline: 3px solid #f59e0b; outline-offset: 2px; animation: pulse 1.2s ease-in-out 2; }
+        .mini-card .mini-photo-area {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            overflow: hidden;
+            padding: 4px;
+            background: linear-gradient(45deg, var(--color-card-primary), var(--color-card-secondary));
+        }
+        .mini-card .mini-photo-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+        .mini-card .mini-name {
+            font-family: var(--font-header);
+            font-size: 1.2em;
+            font-weight: 900;
+            color: var(--color-primary-text);
+            margin-bottom: 5px;
+        }
+        .mini-meta { display:flex; align-items:center; justify-content:center; gap:10px; margin:6px 0 4px; color: var(--color-secondary-text); }
+        .mini-meta .dot { width:8px; height:8px; border-radius:50%; background: var(--color-card-primary); box-shadow: 0 0 0 3px rgba(16,185,129,0.15); }
+        .mini-meta .meta-text { font-weight: 800; }
+        .points-badge { display:inline-block; background: linear-gradient(45deg, var(--color-card-primary), var(--color-card-secondary)); color:#fff; padding:4px 10px; border-radius:999px; font-weight:900; font-family: var(--font-header); box-shadow: 0 4px 10px rgba(0,0,0,.08); }
+
+        /* شريط التحكم (طباعة ومشاركة) */
+        .modal-footer-bar {
+            position: fixed;
+            bottom: calc(0px + env(safe-area-inset-bottom));
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--color-glass-border);
+            padding: 10px 20px;
+            text-align: center;
+            z-index: 2000;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+        }
+        .modal-footer-bar .ctrl-group {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        /* استخدم نفس نمط أيقونات الصفحة الرئيسية */
+        .modal-footer-bar .tool-btn { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--color-card-primary); background:#fff; color: var(--color-card-primary); display:inline-flex; align-items:center; justify-content:center; font-size:18px; box-shadow: 0 6px 18px rgba(0,0,0,.06); transition: transform .15s ease, background .2s ease, color .2s ease; }
+        .modal-footer-bar .tool-btn:hover { transform: translateY(-2px); background: var(--color-card-secondary); color:#0f5132; }
+        .modal-footer-bar .tool-btn .tooltip { position: absolute; right: 54px; top: 50%; transform: translateY(-50%) translateX(8px); background: rgba(255,255,255,.98); color: var(--color-primary-text); border:1px solid var(--color-glass-border); border-radius:10px; padding:6px 10px; font-size:12px; font-weight:800; font-family: var(--font-header); white-space:nowrap; box-shadow:0 6px 16px rgba(0,0,0,.08); opacity:0; pointer-events:none; transition: opacity .15s ease, transform .15s ease; }
+        .modal-footer-bar .tool-btn:hover .tooltip { opacity:1; transform: translateY(-50%) translateX(0); }
+        @media (max-width: 767.98px) {
+            .modal-footer-bar .tool-btn .tooltip { bottom: 54px; left: 50%; right: auto; top: auto; transform: translate(-50%, 8px); }
+            .modal-footer-bar .tool-btn:hover .tooltip { transform: translate(-50%, 0); }
+        }
+        .modal-footer-bar .ctrl-btn:hover::after { opacity: 1; }
+        @media (max-width: 767.98px) { /* هاتف: التلميح فوق الزر */
+            .modal-footer-bar .ctrl-btn::after { bottom: 58px; left: 50%; transform: translate(-50%, 4px); }
+            .modal-footer-bar .ctrl-btn:hover::after { transform: translate(-50%, 0); }
+        }
+        @media (min-width: 768px) { /* مكتب: التلميح يسار الشريط العمودي */
+            .modal-footer-bar .ctrl-btn::after { right: 60px; top: 50%; transform: translate(4px, -50%); }
+            .modal-footer-bar .ctrl-btn:hover::after { transform: translate(0, -50%); }
+        }
+
+        /* شريط عمودي يمين الشاشة على الشاشات الأوسع (يبقى سفلي على الهاتف) */
+        @media (min-width: 768px) {
+            .modal-footer-bar {
+                top: 50%;
+                bottom: auto;
+                right: 16px;
+                left: auto;
+                transform: translateY(-50%);
+                width: 64px;
+                padding: 10px;
+                border-top: none;
+                border-left: 1px solid var(--color-glass-border);
+                border-radius: 16px;
+                box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+            }
+            .modal-footer-bar .ctrl-group { flex-direction: column; justify-content: flex-start; gap: 10px; }
+            .modal-footer-bar .tool-btn { width: 44px; height: 44px; font-size: 18px; }
+            .all-cards-content { padding-right: 96px; padding-bottom: 20px; }
+        }
+
+
+        /* تعديلات الطباعة (Print Styles) */
+        @media print {
+            @page { size: A4; margin: 12mm; }
+            body > *:not(.all-cards-modal) {
+                display: none !important; /* إخفاء كل شيء ما عدا المودال */
+            }
+            body { font-family: 'Cairo', system-ui, sans-serif; }
+            .all-cards-modal {
+                position: static;
+                display: block !important;
+                background: none;
+                box-shadow: none;
+                overflow: visible;
+                padding: 0;
+            }
+            .all-cards-content {
+                max-width: none;
+                padding: 0;
+                margin: 0;
+            }
+            .modal-footer-bar { display: none !important; }
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 أعمدة للطباعة */
+                gap: 18px;
+                padding: 0;
+            }
+            .mini-card {
+                background: linear-gradient(135deg, var(--color-card-secondary), var(--color-card-primary));
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color: #fff;
+                border: 2px solid var(--color-card-primary);
+                box-shadow: none;
+                padding: 18px;
+            }
+            .mini-card .mini-name { color: #fff; font-family: 'Changa', sans-serif; font-size: 1.3em; letter-spacing: .2px; }
+            .mini-meta .dot{ background:#fff; box-shadow: 0 0 0 3px rgba(255,255,255,.25) }
+            .mini-card .mini-reward, .mini-meta .meta-text { color: #fff; font-family: 'Cairo', sans-serif; }
+            .points-badge { background: linear-gradient(45deg, #059669, #10b981); color:#fff; box-shadow:none; font-family: 'Changa', sans-serif; letter-spacing:.2px; }
+            /* عنوان الرأس في الطباعة إن وجد كأول عنصر داخل #printHeader */
+            #printHeader > div:first-child { font-family: 'Changa', sans-serif !important; letter-spacing: .3px; }
+            .mini-card .mini-actions { display: none !important; }
+        }
+        
+        /* منتقي الطلاب المنبثق */
+        .picker-panel {
+            position: fixed;
+            right: 64px;
+            top: 30%;
+            transform: translateY(-10px);
+            background: #fff;
+            border: 1px solid var(--color-glass-border);
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.12);
+            width: 260px;
+            max-height: 60vh;
+            display: none;
+            z-index: 2600; /* أعلى من خلفية المنتقي لضمان الظهور على الحاسوب والهاتف */
+            overflow: hidden;
+        }
+        .picker-header { display:flex; align-items:center; gap:8px; padding:10px; border-bottom:1px solid #eef2f7; }
+        .picker-header input { flex: 1; padding:8px 10px; border:1px solid #e5e7eb; border-radius: 10px; font-family: var(--font-body); }
+        .picker-list { list-style:none; margin:0; padding:6px; max-height: 48vh; overflow:auto; }
+        .picker-list li { padding:8px 10px; border-radius: 10px; cursor:pointer; display:flex; align-items:center; justify-content: space-between; }
+        .picker-list li:hover { background: var(--color-card-secondary); color:#0f5132; }
+        /* حالة إظهار المنتقي */
+        .picker-panel.show { display: block !important; }
+        .picker-empty { padding:12px; text-align:center; color: var(--color-secondary-text); }
+        .pin-badge { font-size: 11px; background: var(--color-card-primary); color:#fff; border-radius:999px; padding:2px 8px; font-weight:900; font-family: var(--font-header); }
+    </style>
+</head>
+<body>
+    
+
+    <div class="container">
+        <h1 class="title">🏆 لـوحــة مكافآت بوابة السلوك الطلابي 🏆</h1>
+        
+        <div id="currentDateTime" class="date-display"></div>
+
+        <div class="right-toolbar">
+            <button id="btnOldest" class="tool-btn" aria-label="الأقدم إلى الأحدث">
+                🕰️
+                <span class="tooltip">مرتّب: الأقدم → الأحدث</span>
+            </button>
+            <button id="btnTop" class="tool-btn" aria-label="أعلى الدرجات">
+                🏆
+                <span class="tooltip">حسب الدرجات الأعلى</span>
+            </button>
+            <button id="btnRange" class="tool-btn" aria-label="اختيار مدى التاريخ">
+                📅
+                <span class="tooltip">مدى تاريخ (من → إلى)</span>
+            </button>
+            <button id="btnRandom" class="tool-btn" aria-label="عرض عشوائي">
+                🔀
+                <span class="tooltip">عرض عشوائي (افتراضي)</span>
+            </button>
+            <button id="btnViewAll" class="tool-btn" aria-label="عرض جميع البطاقات">
+                📄
+                <span class="tooltip">عرض جميع البطاقات</span>
+            </button>
+            <button id="btnPickStudent" class="tool-btn" aria-label="اختيار طالب">
+                👤
+                <span class="tooltip">اختيار طالب لعرضه</span>
+            </button>
+        </div>
+
+        <div id="honorRoll">
+            <div class="message-box">
+                جارٍ تحميل بيانات الطلاب الحاصلين على مكافآت...
+            </div>
+        </div>
+        <!-- شريط أدوات للهواتف أسفل البطاقات -->
+        <div id="mobileToolbar" class="mobile-toolbar" aria-label="أدوات الهاتف">
+            <button id="mBtnOldest" class="tool-btn" aria-label="الأقدم إلى الأحدث">🕰️</button>
+            <button id="mBtnTop" class="tool-btn" aria-label="أعلى الدرجات">🏆</button>
+            <button id="mBtnRange" class="tool-btn" aria-label="اختيار مدى التاريخ">📅</button>
+            <button id="mBtnRandom" class="tool-btn" aria-label="عرض عشوائي">🔀</button>
+            <button id="mBtnViewAll" class="tool-btn" aria-label="عرض جميع البطاقات">📄</button>
+            <button id="mBtnPickStudent" class="tool-btn" aria-label="اختيار طالب">👤</button>
+        </div>
+        <!-- خلفية معتمة لمنتقي الطلاب على الهاتف -->
+        <div id="pickerBackdrop" class="picker-backdrop" aria-hidden="true"></div>
+    </div>
+
+    <div class="left-progress" aria-hidden="true">
+        <div class="left-fill" id="leftFill"></div>
+        <div class="left-label" id="leftLabel">0/0</div>
+    </div>
+
+    <div id="rangeModal" class="range-modal" style="display:none; position: fixed; inset: 0; z-index:1000;">
+        <div class="modal-backdrop" style="position:absolute; inset:0; background: rgba(0,0,0,.35);"></div>
+        <div class="modal-card" style="position:relative; margin: 10vh auto; max-width: 560px; background:#fff; border-radius:18px; border:1px solid var(--color-glass-border); padding:22px; box-shadow:0 16px 40px rgba(0,0,0,.18);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                <h3 style="margin:0; font-family: var(--font-header); color: var(--color-primary-text); font-weight:900;">📅 اختيار مدى التاريخ</h3>
+                <button id="btnCancelRange" class="ctrl-btn" aria-label="إغلاق">✖</button>
+            </div>
+            <p style="margin:0 0 12px; color: var(--color-secondary-text);">اختر تاريخ البداية والنهاية لعرض المكرمين ضمن المدى الزمني.</p>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                <label style="text-align:right; color: var(--color-secondary-text); font-weight:800;">من
+                    <input id="startDate" type="date" style="width:100%; margin-top:6px; padding:12px; border-radius:12px; border:1px solid #e5e7eb; font-family: var(--font-body);">
+                </label>
+                <label style="text-align:right; color: var(--color-secondary-text); font-weight:800;">إلى
+                    <input id="endDate" type="date" style="width:100%; margin-top:6px; padding:12px; border-radius:12px; border:1px solid #e5e7eb; font-family: var(--font-body);">
+                </label>
+            </div>
+            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:16px;">
+                <button id="btnClearRange" class="ctrl-btn" title="إلغاء اختيار المدى">مسح</button>
+                <button id="btnApplyRange" class="ctrl-btn primary">تطبيق</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="studentPicker" class="picker-panel">
+        <div class="picker-header">
+            <input id="studentSearch" type="search" placeholder="ابحث عن طالب...">
+            <button id="btnUnpin" class="ctrl-btn" aria-label="إلغاء تثبيت">✖</button>
+        </div>
+        <ul id="studentList" class="picker-list"></ul>
+        <div id="studentEmpty" class="picker-empty" style="display:none;">لا توجد نتائج</div>
+    </div>
+    
+    <div id="allCardsModal" class="all-cards-modal">
+        <div class="all-cards-content">
+            <div id="printHeader" style="position:relative; background: linear-gradient(120deg, var(--color-card-secondary), var(--color-card-primary)); border-radius:16px; padding:16px; color:#fff;">
+                <div style="font-family: var(--font-header); font-size: 2em; font-weight:900; text-align:center;">🏆 لـوحــة مكافآت بوابة السلوك الطلابي 🏆</div>
+                <div class="cele-decor" aria-hidden="true" style="position:absolute; inset:0; pointer-events:none;">
+                    <div style="position:absolute; top:-8px; left:12px; font-size:28px;">🏆✨</div>
+                    <div style="position:absolute; bottom:-6px; right:18px; font-size:26px;">🌟🎉</div>
+                </div>
+            </div>
+            <div id="miniCardsGrid" class="cards-grid"></div>
+        </div>
+        
+        <div class="modal-footer-bar">
+            <div class="ctrl-group">
+                <button id="btnCloseAllCards" class="tool-btn" aria-label="إغلاق المعرض">✖<span class="tooltip">إغلاق</span></button>
+                <button id="btnShareAllCards" class="tool-btn" aria-label="مشاركة القائمة">📤<span class="tooltip">مشاركة</span></button>
+                <button id="btnPrintAllCards" class="tool-btn" aria-label="طباعة القائمة">🖨️<span class="tooltip">طباعة</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- html2canvas لتحويل عناصر HTML إلى صورة للمشاركة/التحمـيل -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <script>
+        
+        // تأكد من أن هذا الرابط هو الرابط المنشور والفعال لتطبيق Google Apps Script
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzyF8Le2goK3HQv0pnnrYz9IipXhzCkcZnsC-IoW_fjp_DD45hHDxvxSDRFRJ-mAEO8/exec';
+
+
+        const MAX_RETRIES = 3;
+        const INITIAL_DELAY_MS = 1000;
+        const CONTAINER_ID = 'honorRoll';
+        const DISPLAY_DURATION = 5000; 
+        const TRANSITION_DURATION = 700; 
+        const REFRESH_INTERVAL_MS = 30000; // تحديث الخلفية كل 30 ثانية
+        const ORDER_MODE = 'random';
+        // يمكن ضبط قيمة افتراضية للنشر الخارجي إن رغبت
+        const DEFAULT_CLASS_ID = '';
+
+
+        let allStudentsData = [];
+        let currentIndex = 0;
+        let rotationInterval = null;
+        let currentNamesOrder = [];
+        let sortMode = 'random'; // 'random' | 'top' | 'oldest'
+        let activeRange = null; // {startISO, endISO}
+        let pinnedStudent = null; // اسم الطالب المثبت على الشاشة
+
+        
+
+        function createLargeCard(index, name, reward, photoUrl) {
+            const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-card-primary').trim();
+            const placeholder = `https://placehold.co/300x300/F0F8FF/${primaryColor.replace('#', '')}?text=طالب+مميز`;
+            
+            return `
+                <div class="large-card" data-index="${index}">
+                    <div class="card-details">
+                        <div style="margin-bottom: 20px;">
+                            <p style="font-size: 1.5em; color: var(--color-secondary-text); margin: 0 0 5px;">نقدم التهنئة للطالب</p>
+                            <div class="student-name">${name}</div>
+                            <p style="font-size: 1.2em; color: var(--color-secondary-text); margin: 5px 0 0;">لتحقيقه إنجاز:</p>
+                        </div>
+                        
+                        <span class="reward-tag">${reward || 'مكافأة مميزة'}</span>
+                    </div>
+                    <div class="photo-area">
+                        <img 
+                            src="${photoUrl || placeholder}" 
+                            class="student-photo" 
+                            alt="صورة الطالب المكرم ${name}"
+                            onerror="this.onerror=null; this.src='${placeholder}';"
+                            referrerpolicy="no-referrer"
+                        >
+                    </div>
+                </div>
+            `;
+        }
+
+        async function callGAS(functionName, args){
+            const payload = { functionName, args };
+            let attempt = 0;
+            let lastErr;
+            while (attempt <= MAX_RETRIES){
+                try {
+                    const res = await fetch(WEB_APP_URL, {
+                        method: 'POST',
+                        // ✅ هذا هو الحل لتجاوز مشكلة CORS في المتصفحات
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    const text = await res.text();
+                    let data;
+                    try { data = JSON.parse(text); } catch { throw new Error('رد غير صالح: استقبلنا نص غير قابل للتحويل إلى JSON'); }
+                    if (data && data.success === false) throw new Error(data.error || 'فشل الطلب');
+                    return data.data || data;
+                } catch (e) {
+                    lastErr = e;
+                    if (attempt === MAX_RETRIES) break;
+                    const delay = INITIAL_DELAY_MS * Math.pow(2, attempt);
+                    await new Promise(r => setTimeout(r, delay));
+                    attempt++;
+                }
+            }
+            throw lastErr || new Error('فشل الطلب بعد محاولات متعددة');
+        }
+
+        async function fetchFromSystemByClass(classId, opts={}){
+            const container = document.getElementById(CONTAINER_ID);
+            try {
+                // استخدام Promise.allSettled لضمان عدم توقف البرنامج إذا فشل أحد الطلبين (معلومات الفصل غير حاسمة)
+                const [classInfoResult, rawResult] = await Promise.allSettled([
+                    callGAS('getClassInfo', [classId]),
+                    callGAS('getClassPositiveLogsToday', [classId])
+                ]);
+                
+                if (rawResult.status === 'rejected') {
+                    throw new Error(rawResult.reason.message || 'فشل جلب سجلات المكافآت.');
+                }
+                
+                const classInfo = classInfoResult.status === 'fulfilled' ? (classInfoResult.value || {}) : {};
+                const raw = rawResult.value || [];
+
+                let list = Array.isArray(raw) ? raw : [];
+                const topN = Number(opts.topN || 0);
+                if (topN > 0) list = list.slice(0, topN);
+                const threshold = opts.minScore != null ? Number(opts.minScore) : null;
+                if (threshold != null && !Number.isNaN(threshold)) {
+                    list = list.filter(s => Number(s.Count || 0) >= threshold);
+                }
+                
+                const subtitle = classInfo && (classInfo.ClassName || classInfo.Section)
+                  ? `${classInfo.ClassName || classId}${classInfo.Section ? ' - ' + classInfo.Section : ''}`
+                  : String(classId);
+                  
+                const mapped = list.map(s => {
+                    const count = Number(s.Count || 1);
+                    const rewardHTML = `${subtitle} <span class="pos-badge">+${count}</span>`;
+                    return [
+                        s.StudentName,
+                        rewardHTML,
+                        s.PhotoURL || ''
+                    ];
+                });
+                displayData(mapped);
+            } catch (error) {
+                console.error('Error fetching system data:', error);
+                if (allStudentsData.length === 0) {
+                    // عرض رسالة خطأ واضحة
+                    container.innerHTML = `<div class="message-box" style="color:#DC2626; border-color:#DC2626; font-size:1.2em;">فشل تحميل بيانات المكافآت. <br>السبب: ${error.message} <br>يرجى مراجعة كود Google Apps Script وضبط إعدادات النشر على "Anyone".</div>`;
+                }
+                clearInterval(rotationInterval);
+            }
+        }
+
+        function displayData(data) {
+            const container = document.getElementById(CONTAINER_ID);
+            
+            clearInterval(rotationInterval);
+
+            if (data.error || !Array.isArray(data) || data.length === 0) {
+                const message = data.error 
+                    ? `خطأ من الخادم: ${data.error}` 
+                    : `لا توجد أسماء مكرمين حالياً.`;
+                container.innerHTML = `<div class="message-box" style="color:var(--color-card-primary); border-color:var(--color-card-primary);">${message}</div>`;
+                allStudentsData = [];
+                return;
+            }
+
+            allStudentsData = data;
+            
+            container.innerHTML = '';
+            container.insertAdjacentHTML('afterbegin', '<div id="confettiEffect" class="confetti-effect"></div>');
+            
+            allStudentsData.forEach((row, index) => {
+                const name = row[0];
+                const reward = row[1];
+                const photoUrl = row[2];
+                if (name) {
+                    container.insertAdjacentHTML('beforeend', createLargeCard(index, name, reward, photoUrl));
+                }
+            });
+            
+            const cards = container.querySelectorAll('.large-card');
+            if (cards.length === 0) {
+                 container.innerHTML = `<div class="message-box" style="color:var(--color-card-primary); border-color:var(--color-card-primary);">لا توجد نقاط إيجابية لعرضها اليوم.</div>`;
+                 return;
+            }
+
+            // إذا كان هناك طالب مثبت، اعرضه فقط وأوقف الدوران
+            if (pinnedStudent) {
+                const idx = allStudentsData.findIndex(r => (r && r[0]) === pinnedStudent);
+                currentIndex = idx >= 0 ? idx : 0;
+                showCard(currentIndex);
+                clearInterval(rotationInterval);
+            } else {
+                currentIndex = 0;
+                showCard(currentIndex);
+                if (cards.length > 1) {
+                    rotationInterval = setInterval(rotateCards, DISPLAY_DURATION + TRANSITION_DURATION);
+                }
+            }
+        }
+        
+        function rotateCards() {
+            const container = document.getElementById(CONTAINER_ID);
+            const cards = container.querySelectorAll('.large-card');
+            if (cards.length < 2) return;
+
+            const currentCard = cards[currentIndex];
+            const nextIndex = (currentIndex + 1) % cards.length;
+            
+            currentCard.classList.remove('active');
+            currentCard.classList.add('exit');
+            
+            // تشغيل تأثير القصاصات داخل البطاقة
+            triggerConfetti();
+
+            setTimeout(() => {
+                currentCard.classList.remove('exit'); 
+                showCard(nextIndex);
+                currentIndex = nextIndex;
+            }, TRANSITION_DURATION);
+        }
+
+        function showCard(index) {
+             const container = document.getElementById(CONTAINER_ID);
+             const cards = container.querySelectorAll('.large-card');
+             if (cards.length === 0) return;
+             
+             cards.forEach(card => card.classList.remove('active'));
+            
+             const nextCard = cards[index];
+             nextCard.classList.add('active');
+             updateProgress(index, cards.length);
+        }
+
+        function updateProgress(idx, total){
+            const fill = document.getElementById('leftFill');
+            const label = document.getElementById('leftLabel');
+            if (!fill || !label || !total) return;
+            const percent = Math.round(((idx+1) / total) * 100);
+            fill.style.height = percent + '%';
+            label.textContent = `${idx+1}/${total}`;
+        }
+        
+        function triggerConfetti(){
+            const confettiContainer = document.getElementById('confettiEffect');
+            if (!confettiContainer) return;
+            confettiContainer.innerHTML = '';
+            const count = 50;
+            const colors = [
+                getComputedStyle(document.documentElement).getPropertyValue('--color-card-primary').trim(),
+                getComputedStyle(document.documentElement).getPropertyValue('--color-highlight-text').trim(),
+                '#3498db',
+                '#f1c40f'
+            ];
+            for (let i = 0; i < count; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = (Math.random() * 100) + '%';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.animationDelay = (Math.random() * 0.5) + 's';
+                conf.style.animationDuration = (2.5 + Math.random() * 1.5) + 's';
+                confettiContainer.appendChild(conf);
+            }
+            setTimeout(() => { if (confettiContainer) confettiContainer.innerHTML = ''; }, 4000);
+        }
+        
+        
+
+        // خلط عادل (Fisher-Yates)
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function updateClock() {
+            const dateElement = document.getElementById('currentDateTime');
+            if (!dateElement) return;
+
+            const now = new Date();
+            
+            const dateOptions = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            
+            const timeOptions = {
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit',
+                hour12: true 
+            };
+
+            const formattedDate = new Intl.DateTimeFormat('ar-EG', dateOptions).format(now);
+            const formattedTime = new Intl.DateTimeFormat('ar-EG', timeOptions).format(now);
+
+            dateElement.innerHTML = `<span style="color:var(--color-primary-text);">${formattedDate}</span> | <span style="font-weight: 700; color: var(--color-card-primary);">الساعة: ${formattedTime}</span>`;
+        }
+
+
+        // جلب مباشر من GAS للدالة fetchStudentsData
+        async function fetchAndDisplay(){
+            const container = document.getElementById(CONTAINER_ID);
+            try {
+                let data;
+                if (activeRange && activeRange.startISO && activeRange.endISO) {
+                    data = await callGAS('fetchPositiveLogsInRange', [activeRange.startISO, activeRange.endISO]);
+                } else {
+                    data = await callGAS('fetchPositiveLogsToday', []);
+                }
+                const newData = Array.isArray(data) ? data : [];
+
+                // بناء قوائم الأسماء لمقارنة التغييرات
+                const newNames = newData.map(r => r && r[0]).filter(Boolean);
+                const currentSet = new Set(currentNamesOrder);
+                const newSet = new Set(newNames);
+
+                // إذا كان أول تحميل: اخلط البيانات ثم اعرض
+                if (allStudentsData.length === 0) {
+                    let initial = applyOrdering(newData);
+                    displayData(initial);
+                    currentNamesOrder = initial.map(r => r[0]);
+                    return;
+                }
+
+                // إذا لم تتغير المجموعة (نفس الأسماء تمامًا) فلا تعيد البناء
+                const sameSize = currentNamesOrder.length === newNames.length;
+                let identical = sameSize;
+                if (identical) {
+                    for (let name of newNames) { if (!currentSet.has(name)) { identical = false; break; } }
+                }
+                if (identical) return; // لا تغيير بصريًا
+
+                // تحديث مستقر: احتفظ بترتيب الحالي، أضف الوافدين الجدد بشكل عشوائي
+                const byName = Object.fromEntries(newData.map(r => [r[0], r]));
+                const kept = currentNamesOrder.filter(n => newSet.has(n)).map(n => byName[n]).filter(Boolean);
+                const newcomers = newNames.filter(n => !currentSet.has(n)).map(n => byName[n]).filter(Boolean);
+                shuffle(newcomers);
+                const merged = applyOrdering(kept.concat(newcomers));
+                displayData(merged);
+                currentNamesOrder = merged.map(r => r[0]);
+            } catch (error) {
+                console.error('Error fetching GAS data:', error);
+                if (allStudentsData.length === 0) {
+                    container.innerHTML = `<div class=\"message-box\" style=\"color:#DC2626; border-color:#DC2626; font-size:1.2em;\">فشل تحميل بيانات المكافآت. <br>السبب: ${error.message}</div>`;
+                }
+                clearInterval(rotationInterval);
+            }
+        }
+
+        function applyOrdering(rows){
+            let arr = Array.isArray(rows) ? [...rows] : [];
+            if (sortMode === 'top') {
+                arr.sort((a,b) => (Number(b?.[3]||0) - Number(a?.[3]||0)));
+            } else if (sortMode === 'oldest') {
+                arr.sort((a,b) => (Number(a?.[4]||0) - Number(b?.[4]||0)));
+            } else if (sortMode === 'random') {
+                shuffle(arr);
+            }
+            return arr;
+        }
+
+        // --- الدوال الجديدة لإضافة ميزة عرض الكل والمشاركة والطباعة ---
+        
+        function createMiniCard(name, reward, photoUrl) {
+            const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-card-primary').trim();
+            const placeholder = `https://placehold.co/100x100/F0F8FF/${primaryColor.replace('#', '')}?text=طالب`;
+            
+            // تنظيف شارة النقاط في البطاقة المصغرة
+            // نستخدم تعابير منتظمة لحذف وسم span.pos-badge بالكامل
+            const cleanReward = reward.replace(/<span class="pos-badge">.*?<\/span>/g, '').trim();
+
+            // استخراج النقاط من الشارة داخل reward إن وُجدت
+            let points = '';
+            const m = reward.match(/<span class=\"pos-badge\">\+(\d+)<\/span>/);
+            if (m) points = m[1];
+            const classLabel = cleanReward || '';
+
+            return `
+                <div class="mini-card" data-student-name="${name.replace(/"/g,'&quot;')}" data-points="${points}" data-classlabel="${classLabel.replace(/"/g,'&quot;')}">
+                    <div class="mini-photo-area">
+                        <img 
+                            src="${photoUrl || placeholder}" 
+                            alt="صورة الطالب ${name}"
+                            onerror="this.onerror=null; this.src='${placeholder}';"
+                            referrerpolicy="no-referrer"
+                        >
+                    </div>
+                    <div class="mini-name">${name}</div>
+                    <div class="mini-meta">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="meta-text">${classLabel}</span>
+                    </div>
+                    ${points ? `<div class="points-badge">+${points}</div>` : ''}
+                    <div class="mini-actions">
+                        <button class="mini-icon btn-share-one" aria-label="مشاركة">
+                            🔗
+                            <span class="tip">مشاركة بطاقة الطالب</span>
+                        </button>
+                        <button class="mini-icon btn-print-one" aria-label="طباعة">
+                            🖨️
+                            <span class="tip">طباعة بطاقة الطالب</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function populateAllCardsModal() {
+            const grid = document.getElementById('miniCardsGrid');
+            const modal = document.getElementById('allCardsModal');
+            // إخفاء منتقي الطالب وخلفيته إن كانت ظاهرة لتجنب تعتيم الشاشة
+            try {
+                const picker = document.getElementById('studentPicker');
+                const backdrop = document.getElementById('pickerBackdrop');
+                if (picker) { picker.classList.remove('show'); picker.style.display='none'; }
+                if (backdrop) backdrop.style.display='none';
+            } catch {}
+            
+            grid.innerHTML = ''; 
+            
+            if (allStudentsData.length === 0) {
+                 grid.innerHTML = '<p style="text-align:center; font-size:1.4em; color:var(--color-secondary-text);">لا توجد بيانات متاحة للعرض حالياً.</p>';
+                 return;
+            }
+
+            allStudentsData.forEach(row => {
+                const name = row[0];
+                const reward = row[1];
+                const photoUrl = row[2];
+                grid.insertAdjacentHTML('beforeend', createMiniCard(name, reward, photoUrl));
+            });
+            // ربط أزرار المشاركة/الطباعة لكل بطاقة مصغرة بعد توليدها
+            grid.querySelectorAll('.mini-card').forEach((cardEl, idx) => {
+                const btnShare = cardEl.querySelector('.btn-share-one');
+                const btnPrint = cardEl.querySelector('.btn-print-one');
+                if (btnShare) btnShare.addEventListener('click', async () => {
+                    try {
+                        const studentName = cardEl.getAttribute('data-student-name') || '';
+                        const url = new URL(window.location.href);
+                        url.searchParams.set('view', 'all');
+                        url.searchParams.set('student', encodeURIComponent(studentName));
+                        const shareData = { title: 'بطاقة تكريم', text: `إنجاز الطالب ${studentName}`, url: url.toString() };
+                        if (navigator.share) { await navigator.share(shareData); }
+                        else {
+                            await navigator.clipboard.writeText(shareData.url);
+                            alert('تم نسخ رابط البطاقة');
+                        }
+                    } catch(_){}
+                });
+                if (btnPrint) btnPrint.addEventListener('click', async () => {
+                    try {
+                        await printElementAsImage(cardEl, `honor-card-${idx+1}.png`);
+                    } catch(_){}
+                });
+            });
+            
+            modal.classList.add('show');
+        }
+
+        async function exportElementToImage(el, filename = 'card.png'){
+            const canvas = await html2canvas(el, { backgroundColor: null, scale: 2, useCORS: true });
+            return new Promise(resolve => {
+                canvas.toBlob(blob => {
+                    resolve({ blob, dataUrl: canvas.toDataURL('image/png'), filename });
+                }, 'image/png', 1);
+            });
+        }
+
+        function downloadBlob(blob, filename){
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = filename; a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        async function shareBlobAsImage(blob, filename){
+            if (navigator.canShare && navigator.canShare({ files: [new File([blob], filename, { type: 'image/png' })] })){
+                try {
+                    await navigator.share({ files: [new File([blob], filename, { type: 'image/png' })], title: 'بطاقة تكريم' });
+                    return true;
+                } catch(e){ return false; }
+            }
+            return false;
+        }
+
+        async function handleShareAllAsImage(){
+            // مشاركة كرابط يفتح المعرض
+            const url = new URL(window.location.href);
+            url.searchParams.set('view', 'all');
+            const shareData = { title: 'قائمة المكرمين', text: 'عرض جميع بطاقات المكرمين', url: url.toString() };
+            if (navigator.share) { try { await navigator.share(shareData); return; } catch(_){} }
+            await navigator.clipboard.writeText(shareData.url);
+            alert('تم نسخ رابط القائمة');
+        }
+
+        async function printElementAsImage(el, filename='card.png'){
+            // استخراج البيانات لبطاقة احتفالية جميلة
+            const name = el.querySelector('.mini-name')?.textContent?.trim() || '';
+            const classLabel = el.getAttribute('data-classlabel') || '';
+            const points = el.getAttribute('data-points') || '';
+            const imgSrc = el.querySelector('img')?.getAttribute('src') || '';
+            const w = window.open('', '_blank');
+            const styles = `
+                html,body{margin:0;padding:0;background:#f8fafc}
+                body{font-family:'Cairo',sans-serif}
+                .sheet{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+                .card{max-width:720px;width:100%;border-radius:20px;border:2px solid #DCFCE7;background:linear-gradient(135deg, rgba(236,253,245,1), rgba(209,250,229,1)); box-shadow:0 20px 60px rgba(0,0,0,.12); padding:24px; position:relative; overflow:hidden}
+                .header{font-family:'Changa',sans-serif; font-size:28px; font-weight:900; text-align:center; color:#065f46; margin-bottom:12px}
+                .cele{position:absolute; inset:0; pointer-events:none; font-size:28px}
+                .cele .tl{position:absolute; top:8px; left:12px} .cele .br{position:absolute; bottom:8px; right:12px}
+                .body{display:flex; gap:20px; align-items:center; justify-content:center; flex-wrap:wrap}
+                .photo{width:180px; height:180px; border-radius:50%; overflow:hidden; border:6px solid #A7F3D0; box-shadow:0 10px 30px rgba(0,0,0,.15)}
+                .photo img{width:100%; height:100%; object-fit:cover}
+                .info{min-width:260px; text-align:center}
+                .name{font-family:'Changa',sans-serif; font-size:34px; font-weight:900; color:#065f46; margin-bottom:8px}
+                .meta{display:flex; align-items:center; justify-content:center; gap:10px; color:#065f46; font-weight:800; margin-bottom:10px}
+                .dot{width:10px; height:10px; border-radius:50%; background:#10b981; box-shadow:0 0 0 4px rgba(16,185,129,.2)}
+                .pb{display:inline-block; background:linear-gradient(45deg,#10b981,#34d399); color:#fff; padding:8px 14px; border-radius:999px; font-weight:900; font-family:'Changa',sans-serif; box-shadow:0 6px 16px rgba(16,185,129,.25)}
+                .footer{margin-top:14px; text-align:center; color:#047857; font-weight:800}
+            `;
+            w.document.write(`<!doctype html><html lang=\"ar\" dir=\"rtl\"><head><meta charset=\"utf-8\"><title>طباعة بطاقة</title><link href=\"https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Changa:wght@600;800&display=swap\" rel=\"stylesheet\"><style>${styles}</style></head><body>`);
+            w.document.write(`
+                <div class="sheet">
+                  <div class="card">
+                    <div class="header">🏆 لـوحــة مكافآت بوابة السلوك الطلابي 🏆</div>
+                    <div class="cele" aria-hidden="true">
+                      <div class="tl">🏆✨🎉</div>
+                      <div class="br">🌟🎊🎉</div>
+                    </div>
+                    <div class="body">
+                      <div class="photo"><img src="${imgSrc}" alt="${name}"></div>
+                      <div class="info">
+                        <div class="name">${name}</div>
+                        <div class="meta"><span class="dot"></span><span>${classLabel}</span></div>
+                        ${points ? `<div class="pb">+${points}</div>` : ''}
+                        <div class="footer">تهانينا على هذا الإنجاز الرائع! 🎉</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            `);
+            w.document.write('</body></html>');
+            w.document.close();
+            w.focus();
+            w.onload = () => w.print();
+        }
+        
+
+        // منتقي الطالب
+        const studentPicker = document.getElementById('studentPicker');
+        const studentSearch = document.getElementById('studentSearch');
+        const studentList = document.getElementById('studentList');
+        const studentEmpty = document.getElementById('studentEmpty');
+        const btnUnpin = document.getElementById('btnUnpin');
+        const pickerBackdrop = document.getElementById('pickerBackdrop');
+
+        function buildStudentList(filter=''){
+            const names = (allStudentsData || []).map(r => r && r[0]).filter(Boolean).sort((a,b)=> a.localeCompare(b,'ar'));    
+            const filtered = filter ? names.filter(n => n.includes(filter)) : names;
+            studentList.innerHTML = '';
+            if (filtered.length === 0){ studentEmpty.style.display='block'; return; }
+            studentEmpty.style.display='none';
+            filtered.forEach(n => {
+                const li = document.createElement('li');
+                li.textContent = n;
+                if (pinnedStudent === n){
+                    const span = document.createElement('span');
+                    span.className = 'pin-badge';
+                    span.textContent = 'مثبّت';
+                    li.appendChild(span);
+                }
+                li.addEventListener('click', () => {
+                    pinnedStudent = n;
+                    closeStudentPicker();
+                    // أعد العرض لتثبيت الطالب وإيقاف الدوران
+                    displayData(allStudentsData);
+                });
+                studentList.appendChild(li);
+            });
+        }
+
+        // دوال فتح/إغلاق/تبديل منتقي الطالب لضمان موثوقية أعلى
+        function openStudentPicker(){
+            const ensureData = allStudentsData.length ? Promise.resolve() : fetchAndDisplay();
+            ensureData.then(()=>{
+                buildStudentList('');
+                studentPicker.classList.add('show');
+                studentPicker.style.display = 'block';
+                if (pickerBackdrop) {
+                    const isMob = document.documentElement.classList.contains('is-mobile');
+                    pickerBackdrop.style.display = isMob ? 'block' : 'none';
+                }
+                studentSearch.value = '';
+                setTimeout(()=>{ try { studentSearch.focus(); } catch {} }, 0);
+            });
+        }
+        function closeStudentPicker(){
+            studentPicker.classList.remove('show');
+            studentPicker.style.display = 'none';
+            if (pickerBackdrop) pickerBackdrop.style.display = 'none';
+        }
+        function toggleStudentPicker(){
+            if (studentPicker.classList.contains('show')) closeStudentPicker(); else openStudentPicker();
+        }
+        btnPickStudent.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            toggleStudentPicker();
+        });
+        // دعم زر الهاتف: امنع إغلاق اللوحة مباشرة بسبب مستمع النقر العام
+        const mBtnPickStudent = document.getElementById('mBtnPickStudent');
+        if (mBtnPickStudent) {
+            mBtnPickStudent.addEventListener('click', (ev)=>{ ev.stopPropagation(); toggleStudentPicker(); });
+        }
+        studentSearch.addEventListener('input', (e)=> buildStudentList(e.target.value.trim()));
+        btnUnpin.addEventListener('click', ()=> { pinnedStudent = null; closeStudentPicker(); displayData(allStudentsData); });
+        // إغلاق عند النقر خارج اللوحة
+        document.addEventListener('click', (e)=>{
+            const mobileBtn = document.getElementById('mBtnPickStudent');
+            const mobileBar = document.getElementById('mobileToolbar');
+            const within = studentPicker.contains(e.target)
+                || btnPickStudent.contains(e.target)
+                || (mobileBtn && mobileBtn.contains(e.target))
+                || (mobileBar && mobileBar.contains(e.target));
+            if (!within) { closeStudentPicker(); }
+        });
+        if (pickerBackdrop) pickerBackdrop.addEventListener('click', closeStudentPicker);
+        
+        // تشغيل الدوال عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            // اكتشاف الهاتف وإظهار شريط الهاتف أسفل البطاقات
+            const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.matchMedia('(pointer:coarse)').matches;
+            if (isMobile) document.documentElement.classList.add('is-mobile');
+            
+            // جلب البيانات مباشرة وتحديث دوري بدون وميض
+            fetchAndDisplay();
+            setInterval(fetchAndDisplay, REFRESH_INTERVAL_MS);
+            
+            
+            // تحديث الساعة والتاريخ
+            updateClock();
+            setInterval(updateClock, 1000); 
+
+            const btnRandom = document.getElementById('btnRandom');
+            const btnOldest = document.getElementById('btnOldest');
+            const btnTop = document.getElementById('btnTop');
+            const btnRange = document.getElementById('btnRange');
+            const btnViewAll = document.getElementById('btnViewAll'); // الزر الجديد
+            const btnPickStudent = document.getElementById('btnPickStudent');
+            // أزرار شريط الهاتف
+            const mBtnOldest = document.getElementById('mBtnOldest');
+            const mBtnTop = document.getElementById('mBtnTop');
+            const mBtnRange = document.getElementById('mBtnRange');
+            const mBtnRandom = document.getElementById('mBtnRandom');
+            const mBtnViewAll = document.getElementById('mBtnViewAll');
+            const mBtnPickStudent = document.getElementById('mBtnPickStudent');
+            
+            const allCardsModal = document.getElementById('allCardsModal');
+            const btnCloseAllCards = document.getElementById('btnCloseAllCards');
+            const btnPrintAllCards = document.getElementById('btnPrintAllCards');
+            const btnShareAllCards = document.getElementById('btnShareAllCards');
+
+            function setActive(btn){
+                [btnRandom, btnOldest, btnTop, btnRange].forEach(b => b.classList.remove('active'));
+                if (btn) btn.classList.add('active');
+            }
+            // افتراضي: عشوائي
+            setActive(btnRandom);
+            btnRandom.addEventListener('click', () => {
+                sortMode = 'random';
+                activeRange = null;
+                setActive(btnRandom);
+                if (allStudentsData.length) {
+                    const ordered = applyOrdering(allStudentsData);
+                    displayData(ordered);
+                    currentNamesOrder = ordered.map(r => r[0]);
+                } else {
+                    fetchAndDisplay();
+                }
+            });
+            btnOldest.addEventListener('click', () => {
+                sortMode = 'oldest';
+                activeRange = null;
+                setActive(btnOldest);
+                if (allStudentsData.length) {
+                    const ordered = applyOrdering(allStudentsData);
+                    displayData(ordered);
+                    currentNamesOrder = ordered.map(r => r[0]);
+                } else {
+                    fetchAndDisplay();
+                }
+            });
+            btnTop.addEventListener('click', () => {
+                sortMode = 'top';
+                activeRange = null;
+                setActive(btnTop);
+                if (allStudentsData.length) {
+                    const ordered = applyOrdering(allStudentsData);
+                    displayData(ordered);
+                    currentNamesOrder = ordered.map(r => r[0]);
+                } else {
+                    fetchAndDisplay();
+                }
+            });
+            // ربط أزرار الهاتف بالأزرار الأصلية لإعادة استخدام نفس المنطق
+            if (mBtnOldest) mBtnOldest.addEventListener('click', () => btnOldest.click());
+            if (mBtnTop) mBtnTop.addEventListener('click', () => btnTop.click());
+            if (mBtnRange) mBtnRange.addEventListener('click', () => btnRange.click());
+            if (mBtnRandom) mBtnRandom.addEventListener('click', () => btnRandom.click());
+            if (mBtnViewAll) mBtnViewAll.addEventListener('click', () => btnViewAll.click());
+            if (mBtnPickStudent && btnPickStudent) mBtnPickStudent.addEventListener('click', () => btnPickStudent.click());
+            const rangeModal = document.getElementById('rangeModal');
+            const startDateInput = document.getElementById('startDate');
+            const endDateInput = document.getElementById('endDate');
+            const btnApplyRange = document.getElementById('btnApplyRange');
+            const btnCancelRange = document.getElementById('btnCancelRange');
+            const btnClearRange = document.getElementById('btnClearRange');
+
+            btnRange.addEventListener('click', () => {
+                rangeModal.style.display = 'block';
+            });
+            btnCancelRange.addEventListener('click', () => {
+                rangeModal.style.display = 'none';
+            });
+            btnApplyRange.addEventListener('click', async () => {
+                const s = startDateInput.value;
+                const e = endDateInput.value;
+                if (!s || !e) return;
+                activeRange = { startISO: s, endISO: e };
+                sortMode = 'top';
+                setActive(btnRange);
+                rangeModal.style.display = 'none';
+                await fetchAndDisplay();
+            });
+            if (btnClearRange) {
+                btnClearRange.addEventListener('click', () => {
+                    startDateInput.value = '';
+                    endDateInput.value = '';
+                    startDateInput.focus();
+                });
+            }
+            
+            // مستمعات الأحداث للزر الجديد وواجهة العرض المصغرة
+            btnViewAll.addEventListener('click', populateAllCardsModal);
+            
+            btnCloseAllCards.addEventListener('click', () => {
+                allCardsModal.classList.remove('show');
+            });
+            // إغلاق عند النقر خارج البطاقات/المحتوى أو شريط الأزرار
+            allCardsModal.addEventListener('click', (e) => {
+                const content = e.target.closest('.all-cards-content');
+                const footer = e.target.closest('.modal-footer-bar');
+                if (!content && !footer) {
+                    allCardsModal.classList.remove('show');
+                }
+            });
+            
+            btnPrintAllCards.addEventListener('click', () => {
+                window.print();
+            });
+            
+            btnShareAllCards.addEventListener('click', handleShareAllAsImage);
+
+            // معالجة رابط المشاركة: فتح المعرض وتحديد بطاقة طالب
+            const params = new URLSearchParams(window.location.search);
+            const view = params.get('view');
+            const studentParam = params.get('student');
+            if (view === 'all') {
+                // افتح المعرض بعد تحميل البيانات وبناء الشبكة
+                const openAndMaybeFocus = () => {
+                    populateAllCardsModal();
+                    if (studentParam) {
+                        const studentName = decodeURIComponent(studentParam);
+                        const grid = document.getElementById('miniCardsGrid');
+                        const card = Array.from(grid.querySelectorAll('.mini-card')).find(el => (el.getAttribute('data-student-name')||'') === studentName);
+                        if (card) {
+                            card.classList.add('highlight');
+                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            setTimeout(() => card.classList.remove('highlight'), 2500);
+                        }
+                    }
+                };
+                if (!allStudentsData.length) fetchAndDisplay().then(openAndMaybeFocus); else openAndMaybeFocus();
+            }
+        });
+
+    </script>
+</body>
+</html>

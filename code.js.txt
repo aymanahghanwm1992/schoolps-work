@@ -1,0 +1,606 @@
+
+// ==================================================
+// ⚙️ إعدادات النظام
+// ==================================================
+var SPREADSHEET_ID = "16g7_fzRO940nzXWqMwx-X9luyuBq2s3CktfYLBVVyR4"; 
+
+// خريطة إعدادات النماذج الجديدة (للوحة التحكم الحديثة)
+var SHEET_CONFIG = {
+  "activities": {
+    sheetName: "سجل الأنشطة الحديث",
+    columns: ["id", "type", "title", "date", "targetGroup", "goals", "participants", "partner", "notes"],
+    headers: ["المعرف", "النوع", "العنوان", "التاريخ", "الفئة المستهدفة", "الأهداف", "المشاركون", "الجهة المنفذة", "ملاحظات"]
+  },
+  "interviews": {
+    sheetName: "سجل المقابلات الحديث",
+    columns: ["id", "type", "name", "studentName", "date", "time", "topic", "summary", "results"],
+    headers: ["المعرف", "النوع", "الاسم", "اسم الطالب", "التاريخ", "الوقت", "الموضوع", "الملخص", "النتائج"]
+  },
+  "classroomGuidance": {
+    sheetName: "سجل التوجيه الجمعي الحديث",
+    columns: ["id", "grade", "division", "date", "period", "topic", "goals", "methods", "notes"],
+    headers: ["المعرف", "الصف", "الشعبة", "التاريخ", "الحصة", "الموضوع", "الأهداف", "الأساليب", "ملاحظات"]
+  },
+  "absences": {
+    sheetName: "سجل متابعة الغياب الحديث",
+    columns: ["id", "studentName", "grade", "division", "date", "count", "reason", "action", "notes"],
+    headers: ["المعرف", "اسم الطالب", "الصف", "الشعبة", "التاريخ", "العدد", "السبب", "الإجراء", "ملاحظات"]
+  },
+  "delays": {
+    sheetName: "سجل التأخر الصباحي الحديث",
+    columns: ["id", "studentName", "grade", "division", "date", "arrivalTime", "reason", "action", "notes"],
+    headers: ["المعرف", "اسم الطالب", "الصف", "الشعبة", "التاريخ", "وقت الوصول", "السبب", "الإجراء", "ملاحظات"]
+  },
+  "problems": {
+    sheetName: "سجل المشكلات والحالات الحديث",
+    columns: ["id", "studentName", "grade", "date", "type", "description", "action", "result", "isHot"],
+    headers: ["المعرف", "اسم الطالب", "الصف", "التاريخ", "النوع", "الوصف", "الإجراء", "النتيجة", "حالة ساخنة"]
+  },
+  "dropouts": {
+    sheetName: "سجل متابعة التسرب الحديث",
+    columns: ["id", "studentName", "grade", "dropoutDate", "reasons", "procedures", "results"],
+    headers: ["المعرف", "اسم الطالب", "الصف", "تاريخ الانقطاع", "الأسباب", "الإجراءات", "النتائج"]
+  },
+  "groupGuidance": {
+    sheetName: "سجل الإرشاد الجماعي الحديث",
+    columns: ["id", "title", "goal", "startDate", "endDate", "targetGroup", "members", "sessions"],
+    headers: ["المعرف", "العنوان", "الهدف", "تاريخ البدء", "تاريخ الانتهاء", "الفئة", "الأعضاء (JSON)", "الجلسات (JSON)"]
+  },
+  "dailyReports": {
+    sheetName: "سجل البرنامج الأسبوعي الحديث",
+    columns: ["id", "weekNumber", "schedule"],
+    headers: ["المعرف", "رقم الأسبوع", "الجدول (JSON)"]
+  },
+  "caseStudies": {
+    sheetName: "سجل دراسة الحالة الحديث",
+    columns: ["id", "studentName", "grade", "studentId", "reportDate", "mainProblem", "problemType", "severity", "analysis", "treatmentPlan"],
+    headers: ["المعرف", "اسم الطالب", "الصف", "رقم الهوية", "التاريخ", "المشكلة", "النوع", "الخطورة", "التحليل", "الخطة العلاجية (JSON)"]
+  }
+};
+
+// ==================================================
+// 🚀 نقطة الدخول الرئيسية (GET)
+// ==================================================
+function doGet(e) {
+  var params = e.parameter;
+
+  // 1. إذا كان الطلب من النظام الجديد (React Forms)
+  if (params.action && params.type) {
+    if (params.action === "getData") {
+      return getNewSystemData(params.type);
+    }
+  }
+
+  // 2. إذا كان الطلب من التقارير القديمة (Legacy HTML Reports)
+  if (params.report) {
+    return handleLegacyReports(params.report);
+  }
+
+  // افتراضي
+  return responseJSON({ error: "Invalid request parameters" });
+}
+
+// ==================================================
+// 🚀 نقطة الدخول الرئيسية (POST) - للنظام الجديد فقط
+// ==================================================
+function doPost(e) {
+  try {
+    var contents = JSON.parse(e.postData.contents);
+    var action = contents.action;
+    var type = contents.type;
+    var data = contents.data;
+
+    if (!SHEET_CONFIG[type]) throw new Error("Invalid sheet type: " + type);
+
+    if (action === "add") return addRow(type, data);
+    if (action === "update") return updateRow(type, data);
+    if (action === "delete") return deleteRow(type, data.id);
+
+    return responseJSON({ success: false, message: "Unknown action" });
+
+  } catch (error) {
+    return responseJSON({ success: false, message: error.toString() });
+  }
+}
+
+// ==================================================
+// 🛠️ دوال النظام الجديد (CRUD)
+// ==================================================
+
+function getNewSystemData(type) {
+  var config = SHEET_CONFIG[type];
+  if (!config) return responseJSON([]);
+  
+  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  var sheet = ss.getSheetByName(config.sheetName);
+  
+  if (!sheet) return responseJSON([]);
+
+  var rows = sheet.getDataRange().getValues();
+  if (rows.length < 2) return responseJSON([]);
+
+  var data = rows.slice(1).map(function(row) {
+    var obj = {};
+    config.columns.forEach(function(key, index) {
+      var val = row[index];
+      // تحويل التاريخ لنص
+      if (val instanceof Date) {
+        val = Utilities.formatDate(val, Session.getScriptTimeZone(), "yyyy-MM-dd");
+      }
+      // تحويل القيم المنطقية (Boolean)
+      if (val === "TRUE" || val === true) val = true;
+      if (val === "FALSE" || val === false) val = false;
+
+      // محاولة تحويل JSON
+      if (typeof val === 'string' && (val.startsWith('[') || val.startsWith('{'))) {
+        try { val = JSON.parse(val); } catch(e) {}
+      }
+      obj[key] = val;
+    });
+    return obj;
+  });
+
+  return responseJSON(data.reverse()); // الأحدث أولاً
+}
+
+function addRow(type, data) {
+  var config = SHEET_CONFIG[type];
+  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  var sheet = ss.getSheetByName(config.sheetName);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(config.sheetName);
+    sheet.appendRow(config.headers);
+    sheet.setRightToLeft(true);
+  }
+
+  var rowData = config.columns.map(function(key) {
+    var val = data[key];
+    if (typeof val === 'object' && val !== null) {
+      return JSON.stringify(val);
+    }
+    // تحويل القيم المنطقية لنص
+    if (typeof val === 'boolean') {
+        return val ? "TRUE" : "FALSE";
+    }
+    return val === undefined ? "" : val;
+  });
+
+  sheet.appendRow(rowData);
+  return responseJSON({ success: true, message: "Added successfully" });
+}
+
+function updateRow(type, data) {
+  var config = SHEET_CONFIG[type];
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(config.sheetName);
+  
+  if (!sheet) return responseJSON({ success: false, message: "Sheet not found" });
+
+  var rows = sheet.getDataRange().getValues();
+  // البحث عن الصف بناءً على المعرف (العمود الأول دائماً هو id)
+  for (var i = 1; i < rows.length; i++) {
+    if (String(rows[i][0]) === String(data.id)) {
+      var rowData = config.columns.map(function(key) {
+        var val = data[key];
+        if (typeof val === 'object' && val !== null) {
+          return JSON.stringify(val);
+        }
+        if (typeof val === 'boolean') {
+            return val ? "TRUE" : "FALSE";
+        }
+        return val === undefined ? "" : val;
+      });
+      
+      sheet.getRange(i + 1, 1, 1, rowData.length).setValues([rowData]);
+      return responseJSON({ success: true, message: "Updated successfully" });
+    }
+  }
+  return responseJSON({ success: false, message: "ID not found" });
+}
+
+function deleteRow(type, id) {
+  var config = SHEET_CONFIG[type];
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(config.sheetName);
+  
+  if (!sheet) return responseJSON({ success: false, message: "Sheet not found" });
+
+  var data = sheet.getDataRange().getValues();
+  for (var i = 1; i < data.length; i++) {
+    if (String(data[i][0]) === String(id)) {
+      sheet.deleteRow(i + 1);
+      return responseJSON({ success: true, message: "Deleted successfully" });
+    }
+  }
+  return responseJSON({ success: false, message: "ID not found" });
+}
+
+// ==================================================
+// 📜 معالجة التقارير القديمة (Legacy Handler)
+// ==================================================
+function handleLegacyReports(reportName) {
+  var output = [];
+
+  if (reportName === "البرنامج اليومي الأسبوعي") {
+    output = getWeeklyProgramFromSheet();
+  } else if (reportName === "رصد الاستشارات الطلابية") {
+    output = getStudentCounseling();
+  } else if (reportName === "متابعة لقاءات التوجيه الجمعي") {
+    output = getGroupGuidanceMeetings();
+  } else if (reportName === "متابعة المقابلات") {
+    output = getStudentInterviews();
+  } else if (reportName === "متابعة غياب الطالب") {
+    output = getStudentAbsences();
+  } else if (reportName === "رصد المشكلات الصحية") {
+    output = getHealthProblems();
+  } else if (reportName === "متابعة التأخر الصباحي") {
+    output = getMorningLate();
+  } else if (reportName === "مجلة الحائط") {
+    output = getMagazineData();
+  } else if (reportName === "الاذاعة الصباحية") {
+    output = getMorningRadioData();
+  } else if (reportName === "نشرات") {
+    output = getGuidanceBulletins();
+  } else if (reportName === "الزيارات") {
+    output = getVisitsData();
+  } else if (reportName === "الندوات") {
+    output = getSeminarsData();
+  } else if (reportName === "متابعة حالات التسرب") {
+    output = getDropoutCases();
+  } else if (reportName === "رصد المشكلات الاجتماعية") {
+    output = getSocialProblems();
+  } else if (reportName === "رصد المشكلات السلوكية") {
+    output = getBehaviorProblems();
+  } else if (reportName === "رصد حالات التسرب") {
+    output = getDropoutRecords();
+  } else if (reportName === "رصد المشكلات الأكاديمية") {
+    output = getAcademicProblems();
+  } else if (reportName === "رصد التوجيه الجمعي") {
+    output = getCollectiveGuidanceRecords();
+  } else if (reportName === "متابعة الارشاد الجماعي") {
+    output = getGroupGuidanceSessions();
+  } else if (reportName === "رصد الغياب") {
+    output = getAttendanceRecords();
+  } else if (reportName === "دراسة الحالة") {
+    output = getCaseStudyData();
+  } else if (reportName === "رصد الحالات الساخنة") {
+    output = getHotCases();
+  } else if (reportName === "رصد جلسات الإرشاد الجماعي") {
+    output = getCounselingSessions();
+  } else if (reportName === "نموذج رصد المقابلات") {
+    output = getInterviewRecords();
+  } else if (reportName === "نموذج رصد الأنشطة") {
+    output = getActivityRecords();
+  } else if (reportName === "نموذج رصد المشكلات وقضايا الطلبة") {
+    output = getStudentIssuesRecords();
+  } else if (reportName === "رابط") {
+    output = getGuidancePlanLinks();
+  } else if (reportName === "password") {
+    output = getPasswordFromSheet();
+  } else {
+    output = { error: "Report not found" };
+  }
+
+  return responseJSON(output);
+}
+
+// ==================================================
+// 📁 دوال جلب البيانات القديمة (Legacy Functions)
+// ==================================================
+
+function getWeeklyProgramFromSheet() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("البرنامج اليومي والاسبوعي");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  if (data.length < 2) return [];
+  var headers = data[0];
+  var rows = data.slice(1);
+  return rows.map(function(row) {
+    var week = {};
+    week["رقم الأسبوع"] = row[0];
+    var days = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس"];
+    var colIndex = 1;
+    days.forEach(function(day) {
+      var dayObj = {};
+      dayObj["التاريخ"] = row[colIndex + 1] || "-";
+      var sessions = {};
+      for (var i=0; i<7; i++) {
+        sessions[headers[colIndex + 2 + i] || "الحصة " + (i+1)] = row[colIndex + 2 + i] || "-";
+      }
+      dayObj["الحصص"] = sessions;
+      week[day] = dayObj;
+      colIndex += 9;
+    });
+    return week;
+  });
+}
+
+function getStudentCounseling() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رصد الاستشارات الطلابية");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "اسم الطالب": row[0], "الصف / س": row[1], "اليوم / التاريخ": row[2], "موضوع الاستشارة": row[3], "الإجراءات": row[4]
+  }));
+}
+
+function getGroupGuidanceMeetings() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("متابعة لقاءات التوجيه الجمعي");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(function(row) {
+    var obj = { "الفصل الدراسي": row[0], "المصف": row[1], "نشاطات": [] };
+    for (var i=0; i<7; i++) {
+      var base = 2 + i * 9;
+      obj.نشاطات.push({
+        "رقم النشاط": row[base], "اليوم": row[base+1], "التاريخ": row[base+2], "الصف": row[base+3],
+        "الحصة": row[base+4], "الموضوع": row[base+5], "الاهداف": row[base+6], "الانشطة": row[base+7], "ملاحظات": row[base+8]
+      });
+    }
+    return obj;
+  });
+}
+
+function getStudentInterviews() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("متابعة المقابلات");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "اليوم": row[0], "التاريخ": row[1], "الساعة": row[2], "الشخص الذي تمت مقابلة": row[3], "موضوع المقابلة": row[4], "الإجراءات": row[5]
+  }));
+}
+
+function getStudentAbsences() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("متابعة غياب الطالب");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "رقم الاستمارة": row[0], "اليوم": row[1], "التاريخ": row[2], "رمز الطالب": row[3], "الصف": row[4],
+    "الشعبة": row[5], "عدد مرات الغياب": row[6], "لشهر": row[7], "الأسباب": row[8], "الإجراءات": row[9], "النتائج": row[10]
+  }));
+}
+
+function getHealthProblems() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رصد المشكلات الصحية");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "الاسم": row[0], "الصف والشعبة": row[1], "جهة التحويل": row[2], "نوع المشكلة": row[3], "تاريخ التحويل": row[4], "تاريخ الجلسات": row[5]
+  }));
+}
+
+function getSocialProblems() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رصد المشكلات الاجتماعية");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "الاسم": row[0], "الصف والشعبة": row[1], "جهة التحويل": row[2], "نوع المشكلة": row[3], "تاريخ التحويل": row[4], "تاريخ الجلسات": row[5]
+  }));
+}
+
+function getBehaviorProblems() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رصد المشكلات السلوكية");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "الاسم": row[0], "الصف والشعبة": row[1], "جهة التحويل": row[2], "نوع المشكلة": row[3], "تاريخ التحويل": row[4], "تاريخ الجلسات": row[5]
+  }));
+}
+
+function getAcademicProblems() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رصد المشكلات الأكاديمية");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "الاسم": row[0], "الصف والشعبة": row[1], "جهة التحويل": row[2], "نوع المشكلة": row[3], "تاريخ التحويل": row[4], "تاريخ الجلسات": row[5]
+  }));
+}
+
+function getMorningLate() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("متابعة التأخر الصباحي");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "رقم الاستمارة": row[0], "اليوم": row[1], "التاريخ": row[2], "اسم الطالب": row[3], "الصف": row[4],
+    "الشعبة": row[5], "عدد مرات التأخر الصباحي": row[6], "تاريخ مرات التأخر الصباحي": row[7], "عدد مرات التأخر لشهر": row[8],
+    "الأسباب": row[9], "الإجراءات": row[10], "النتائج": row[11]
+  }));
+}
+
+function getMagazineData() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("مجلة الحائط");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "رقم المجلة": row[0], "العام الدراسي": row[1], "الفصل الدراسي": row[2], "اليوم": row[3], "التاريخ": row[4],
+    "موضوع المجلة": row[5], "الفئة المستهدفة": row[6], "عدد الطلاب": row[7], "المشاركون في الاعداد": row[8], "الأهداف": row[9], "ملاحظات": row[10]
+  }));
+}
+
+function getMorningRadioData() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("نموذج الاذاعة");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "رقم المشاركة في الاذاعة الصباحية": row[0], "العام الدراسي": row[1], "الفصل الدراسي": row[2], "اليوم": row[3],
+    "التاريخ": row[4], "الموضوع": row[5], "المناسبة": row[6], "الأهداف": row[7]
+  }));
+}
+
+function getGuidanceBulletins() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("نشرات");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "رقم النشرة": row[0], "العام الدراسي": row[1], "الفصل الدراسي": row[2], "اليوم": row[3], "التاريخ": row[4],
+    "موضوع النشرة": row[5], "الفئة المستهدفة": row[6], "عدد المنتفعين": row[7], "أهداف النشرة": row[8], "ملاحظات": row[9]
+  }));
+}
+
+function getVisitsData() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("الزيارات");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "رقم الزيارة": row[0], "العام الدراسي": row[1], "الفصل الدراسي": row[2], "نوع الزيارة": row[3], "اليوم": row[4],
+    "التاريخ": row[5], "ساعة الانطلاق": row[6], "ساعة العودة": row[7], "الفئة المستهدفة": row[8], "عدد الطلاب": row[9],
+    "رأي ولي الأمر": row[10], "الموقع": row[11], "المشتركون في الزيارة": row[12], "الاهداف": row[13], "النتائج": row[14], "ملاحظات": row[15]
+  }));
+}
+
+function getSeminarsData() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("الندوات والمحاضرات");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "رقم الندوة او الورشة": row[0], "العام الدراسي": row[1], "الفصل الدراسي": row[2], "اليوم": row[3], "التاريخ": row[4],
+    "الموضوع": row[5], "نوع النشاط": row[6], "الفئة المستهدفة": row[7], "القائم في النشاط": row[8], "الجهة التي يعمل بها": row[9],
+    "أهداف النشاط": row[10], "التوصيات": row[11]
+  }));
+}
+
+function getDropoutCases() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("متابعة حالات التسرب");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "رقم الاستمارة": row[0], "اسم الطالب": row[1], "الصف": row[2], "الشعبة": row[3], "تاريخ التسرب": row[4],
+    "الأسباب من وجهة نظر الطالب على لسان ولي الامر": row[5], "الام / الاب": row[6], "رأي ولي الأمر": row[7], "وجهة نظر المرشد": row[8],
+    "الإجراءات": row[9], "النتائج": row[10]
+  }));
+}
+
+function getDropoutRecords() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رصد حالات التسرب");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "الاسم": row[0], "الصف والشعبة": row[1], "تاريخ التسرب": row[2], "أسباب التسرب": row[3], "الملاحظات": row[4]
+  }));
+}
+
+function getCollectiveGuidanceRecords() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رصد التوجيه الجمعي");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  var headers = data[0];
+  return data.slice(1).map(row => {
+    var obj = {};
+    headers.forEach((h, i) => obj[h || "Col"+i] = row[i] || "-");
+    return obj;
+  });
+}
+
+function getAttendanceRecords() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رصد الغياب");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  var headers = data[0];
+  return data.slice(1).map(row => {
+    var obj = {};
+    headers.forEach((h, i) => obj[h || "Col"+i] = row[i] || "-");
+    return obj;
+  });
+}
+
+function getGroupGuidanceSessions() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("متابعة الارشاد الجماعي");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "رقم الاستمارة": row[0], "العام الدراسي": row[1], "الفصل الدراسي": row[2], "اليوم": row[3], "التاريخ": row[4],
+    "عنوان جلسة الارشاد الجماعي": row[5], "عدد افراد المجموعة": row[6], "هدف تشكيل المجموعة": row[7], "عدد اللقاءات": row[8],
+    "تاريخ البدء": row[9], "تاريخ الانتهاء": row[10], "العضو1": row[11], "العضو2": row[12], "العضو3": row[13], "العضو4": row[14],
+    "العضو5": row[15], "العضو6": row[16], "العضو7": row[17], "العضو8": row[18],
+    "الأهداف1": row[19], "الإجراءات / الأنشطة1": row[20], "الملاحظات1": row[21],
+    "الأهداف2": row[22], "الإجراءات / الأنشطة2": row[23], "الملاحظات2": row[24],
+    "الأهداف3": row[25], "الإجراءات / الأنشطة3": row[26], "الملاحظات3": row[27],
+    "الأهداف4": row[28], "الإجراءات / الأنشطة4": row[29], "الملاحظات4": row[30]
+  }));
+}
+
+function getCaseStudyData() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("دراسة الحالة");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "رقم_الاستمارة": row[0], "اسم_المديرية": row[1], "اسم_المدرسة": row[2], "رمز_الطالب": row[3], "الصف": row[4], "الشعبة": row[5],
+    "مكان_السكن": row[6], "مع_من_يعيش_الطالب": row[7], "عمل_الاب": row[8], "عمل_الام": row[9], "المستوى_التعليمي_للاب": row[10],
+    "المستوى_التعليمي_للام": row[11], "الحالة_الاجتماعية_للوالدين": row[12], "الوضع_الاقتصادي_للاسرة": row[13], "الوضع_الصحي_للاسرة": row[14],
+    "الوضع_الصحي_للطالب": row[15], "المستوى_الحصيلي_للطالب": row[16], "عدد_الاخوة": row[17], "عدة_الاخوات": row[18], "ترتيب_الطالب_في_الاسرة": row[19],
+    "جهة_التحويل": row[20], "تاريخ_التحويل": row[21], "سبب_التحويل": row[22], "نوع_المشكلة_تصنيفها": row[23], "وصف_المشكلة_كما_يراها_الطالب_": row[24],
+    "وصف_المشكلة_كما_يراها_الأهل_في_حال_تم_ال": row[25], "وصف_المشكلة_كما_يراها_مدير_المدرسة_إذا_ك": row[26], "وصف_المشكلة_وأعراضها_كما_براها_المرشد": row[27],
+    "العبارة_التشخيصية_": row[28], "خطة_آلية_التدخل_مع__الحالة": row[29], "رغبة_الطالبة_في_التحسن": row[30], "التوصيات": row[31],
+    "رقم_الجلسة1": row[32], "الهدف_من_الجلسة1": row[33], "ملخص_الجلسة1": row[34], "ملاحظات1": row[35], "موعد_اللقاء_القادم1": row[36], "هل_انتهت_المشكلة1": row[37],
+    "رقم_الجلسة2": row[38], "الهدف_من_الجلسة2": row[39], "ملخص_الجلسة2": row[40], "ملاحظات2": row[41], "موعد_اللقاء_القادم2": row[42], "هل_انتهت_المشكلة2": row[43],
+    "رقم_الجلسة3": row[44], "الهدف_من_الجلسة3": row[45], "ملخص_الجلسة3": row[46], "ملاحظات3": row[47], "موعد_اللقاء_القادم3": row[48], "هل_انتهت_المشكلة3": row[49],
+    "رقم_الجلسة4": row[50], "الهدف_من_الجلسة4": row[51], "ملخص_الجلسة4": row[52], "ملاحظات4": row[53], "موعد_اللقاء_القادم4": row[54], "هل_انتهت_المشكلة4": row[55]
+  }));
+}
+
+function getHotCases() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رصد الحالات الساخنة");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "العام الدراسي": row[0], "اسم المديرية": row[1], "اسم المدرسة": row[2], "الرقم": row[3], "اسم الطالب": row[4],
+    "الصف": row[5], "تاريخ المشكلة": row[6], "تصنيف الحالة": row[7], "جهة تحويل الحالة": row[8], "الإجراءات / المتابعة": row[9]
+  }));
+}
+
+function getCounselingSessions() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رصد جلسات الإرشاد الجماعي");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "العام الدراسي": row[0], "الفصل الدراسي": row[1], "الموضوع": row[2], "عدد المجموعات لنفس الموضوع": row[3],
+    "الفئة المستهدفة": row[4], "عدد اللقاءات (الجلسات) لكل مجموعة": row[5], "الملاحظات": row[6]
+  }));
+}
+
+function getInterviewRecords() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("نموذج رصد المقابلات");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "العام الدراسي": row[0], "الفصل الدراسي": row[1], "الشخص الذي تم مقابلته": row[2], "المجموع العام": row[3], "ملاحظات": row[4]
+  }));
+}
+
+function getActivityRecords() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("نموذج رصد الأنشطة");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "العام الدراسي": row[0], "الفصل الدراسي": row[1], "الشهر\\النشاط": row[2], "الزيارات": row[3], "النشرات": row[4],
+    "الإذاعة": row[5], "الندوات": row[6], "المحاضرات": row[7], "ورشات عمل": row[8], "مجلة حائط": row[9]
+  }));
+}
+
+function getStudentIssuesRecords() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("نموذج رصد المشكلات وقضايا الطلبة");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({
+    "اسم المديرية": row[0], "اسم المدرسة": row[1], "الفصل الدراسي": row[2], "تصنيف الحالة": row[3], "عدد الحالات داخل المدرسة": row[4],
+    "عدد الحالات خارج المدرسة": row[5], "عدد الحالات التي تم متابعتها": row[6], "عدد الحالات التي تم تحويلها لشبكة الحماية بالتنسيق مع رئيس القسم بالمديرية": row[7], "ملاحظات": row[8]
+  }));
+}
+
+function getGuidancePlanLinks() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("رابط");
+  if (!sheet) return [];
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1).map(row => ({ "رابط": row[0], "عنوان": row[1] || `رابط ${row[0]}` }));
+}
+
+function getPasswordFromSheet() {
+  var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("لوحة الإرشاد");
+  if (!sheet) return { error: "Sheet not found" };
+  var password = sheet.getRange("A2").getDisplayValue().trim();
+  return { password: password };
+}
+
+function responseJSON(data) {
+  return ContentService.createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+}
